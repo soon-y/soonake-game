@@ -6,6 +6,8 @@ import Text from './Text'
 export default class BillBoard {
     constructor() {
         this.application = new Application()
+        this.resources = this.application.resources
+        this.resource = this.resources.items.screenImage
         this.scene = this.application.scene
         this.text = new Text()
         this.score = this.text.score
@@ -54,12 +56,23 @@ export default class BillBoard {
 
         this.screen = new THREE.Mesh(
             new THREE.PlaneGeometry(param.boardSize / 4 * 3, param.boardSize / 3),
-            new THREE.MeshBasicMaterial({ map: this.rt.texture }))
+            new THREE.MeshBasicMaterial({ 
+                color: '#848484',
+                map: this.rt.texture }))
 
         this.screen.position.y = param.boardSize / 6 + param.size * 2
         this.screen.position.z = - param.boardSize / 2 - param.wallWidth * 2 + param.size / 3 / 2 + 0.01
         this.screen.position.x = - param.boardSize / 10 
 
-        this.scene.add(this.box, this.cylinder1, this.cylinder2, this.score, this.screen)
+        this.screen2 = new THREE.Mesh(
+            new THREE.PlaneGeometry(param.boardSize / 4 * 3, param.boardSize / 3),
+            new THREE.MeshBasicMaterial({ 
+                color: '#474747',
+                map: this.resource
+                }))
+        this.screen2.position.copy(this.screen.position)
+        this.screen.position.z +=0.001
+        
+        this.scene.add(this.box, this.cylinder1, this.cylinder2, this.score, this.screen, this.screen2)
     }
 }

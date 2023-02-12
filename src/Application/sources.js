@@ -89,4 +89,9 @@ export default [
         type: 'objModel',
         path: 'models/apple.obj'
     },
+    {
+        name: 'screenImage',
+        type: 'texture',
+        path: 'textures/screenMap/screenImage.jpg'
+    }
 ]
