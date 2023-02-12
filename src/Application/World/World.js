@@ -9,7 +9,7 @@ import Text from './Text'
 import Snake from "./Snake"
 import Clock from './Clock'
 import { param } from '../param'
-import * as Hammer from 'hammerjs'
+import 'hammerjs'
 
 const direction = new THREE.Vector3(0, 0, 0)
 const listener = new THREE.AudioListener()
@@ -52,6 +52,7 @@ export default class World {
 
     playGiude() {
         if (isTouchDevice() === true) {
+            this.application.camera.controls.enablePan = false
             this.text.getMsg("Swipe!")
         } else {
             this.text.getMsg("Press any arrow key!")
