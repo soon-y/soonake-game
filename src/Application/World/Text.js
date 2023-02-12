@@ -20,7 +20,6 @@ export default class Text {
         this.font = new Font(this.resource)
         this.score = new THREE.Group()
         this.msg = new THREE.Group()
-        this.getMsg("Press any arrow key!")
     }
 
     refreshText(num) {
