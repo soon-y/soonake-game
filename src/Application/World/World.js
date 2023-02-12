@@ -20,7 +20,6 @@ let ready = false
 let rotation = false
 document.addEventListener("keydown", arrowKey)
 const canvas = document.querySelector('canvas.webgl')
-const hammertime = new Hammer(canvas,Hammer.Swipe);
 
 export default class World {
     constructor() {
@@ -234,17 +233,11 @@ function arrowKey(event) {
     }
 }
 
-hammertime.on('swipeleft', function(ev) {
-	goLeft()
-})
-hammertime.on('swipeRight', function(ev) {
-	goRight()
-})
-hammertime.on('swipeUp', function(ev) {
-	goUp()
-})
-hammertime.on('swipeDown', function(ev) {
-	goDown()
+Hammer(canvas).on('swipeleft, swiperight, swipeup, swipedown', function(ev) {
+    if (ev.type == 'swipeleft') goLeft()
+    if (ev.type == 'swiperight') goRight()
+    if (ev.type == 'swipeup') goUp()
+    if (ev.type == 'swipedown') goDown()
 })
 
 function goLeft(){
