@@ -37,9 +37,7 @@ export default class PlayField {
             color: '#ffffff',
             map: this.textures.color,
             normalMap: this.textures.normal,
-            side: THREE.DoubleSide,
-            transparent: true,
-            opacity: 0.8
+            side: THREE.DoubleSide
         })
     }
 
