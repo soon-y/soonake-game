@@ -35,7 +35,7 @@ export default class Floor {
         this.material = new THREE.MeshStandardMaterial({
             color: '#ffffff',
             map: this.textures.color,
-            side: THREE.DoubleSide,
+            side: THREE.DoubleSide
         })
     }
 
