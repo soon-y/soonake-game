@@ -43,12 +43,21 @@ export default class World {
             this.body.add(this.snake.body1, this.snake.body2)
             this.billBoard = new BillBoard()
             this.clock = new Clock().instance
-            msg = this.text.msg
-            msg.rotation.x = -Math.PI/2
-            msg.position.z = param.boardSize/2 + param.size * 2
-            this.scene.add(this.apple, snake, msg)
+            this.playGiude()
             this.start()
         })
+    }
+
+    playGiude(){
+        if(isTouchDevice() === true){
+            this.text.getMsg("Swip!")
+        }else{
+            this.text.getMsg("Press any arrow key!")
+        }
+        msg = this.text.msg
+        msg.rotation.x = -Math.PI/2
+        msg.position.z = param.boardSize/2 + param.size * 2
+        this.scene.add(this.apple, snake, msg)
     }
 
     start() {
@@ -257,3 +266,9 @@ setInterval(() => {
         snake.children[0].position.add(direction.clone())
     }
 }, 250)
+
+function isTouchDevice(){
+    return ( 'ontouchstart' in window ) ||
+                   ( navigator.maxTouchPoints > 0 ) ||
+                   ( navigator.msMaxTouchPoints > 0 );
+}
