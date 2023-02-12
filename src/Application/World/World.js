@@ -20,7 +20,7 @@ let ready = false
 let rotation = false
 document.addEventListener("keydown", arrowKey)
 const canvas = document.querySelector('canvas.webgl')
-const hammertime = new Hammer(canvas, Hammer.Swipe);
+const hammertime = new Hammer(canvas,Hammer.Swipe);
 
 export default class World {
     constructor() {
