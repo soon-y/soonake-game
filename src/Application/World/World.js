@@ -9,6 +9,7 @@ import Text from './Text'
 import Snake from "./Snake"
 import Clock from './Clock'
 import { param } from '../param'
+import * as Hammer from 'hammerjs'
 
 const direction = new THREE.Vector3(0, 0, 0)
 const listener = new THREE.AudioListener()
@@ -18,6 +19,8 @@ let rtCamera, msg
 let ready = false
 let rotation = false
 document.addEventListener("keydown", arrowKey)
+const canvas = document.querySelector('canvas.webgl')
+const hammertime = new Hammer(canvas, Hammer.Swipe);
 
 export default class World {
     constructor() {
@@ -48,15 +51,15 @@ export default class World {
         })
     }
 
-    playGiude(){
-        if(isTouchDevice() === true){
-            this.text.getMsg("Swip!")
-        }else{
+    playGiude() {
+        if (isTouchDevice() === true) {
+            this.text.getMsg("Swipe!")
+        } else {
             this.text.getMsg("Press any arrow key!")
         }
         msg = this.text.msg
-        msg.rotation.x = -Math.PI/2
-        msg.position.z = param.boardSize/2 + param.size * 2
+        msg.rotation.x = -Math.PI / 2
+        msg.position.z = param.boardSize / 2 + param.size * 2
         this.scene.add(this.apple, snake, msg)
     }
 
@@ -83,11 +86,11 @@ export default class World {
         snake.children[0].position.x = (Math.floor(param.boardSize * (Math.random())) - param.boardSize / 2 + param.size / 2)
         snake.children[0].position.z = (Math.floor(param.boardSize * (Math.random())) - param.boardSize / 2 + param.size / 2)
     }
-    
+
     placeApple() {
         let applePosX = (Math.floor(param.boardSize * (Math.random())) - param.boardSize / 2 + param.size / 2)
         let applePosZ = (Math.floor(param.boardSize * (Math.random())) - param.boardSize / 2 + param.size / 2)
-    
+
         // place an apple randomly where there is no snake
         while (samePositionAsSnake(applePosX, applePosZ)) {
             applePosX = (Math.floor(param.boardSize * (Math.random())) - param.boardSize / 2 + param.size / 2)
@@ -96,7 +99,7 @@ export default class World {
         this.apple.position.x = applePosX
         this.apple.position.z = applePosZ
     }
-    
+
     placeRtCam() {
         rtCamera.position.y = param.size / 2
         rtCamera.position.z = param.size / 2
@@ -194,11 +197,14 @@ function samePositionAsSnake(x, z) {
     return false
 }
 
+const step = 1
 function arrowKey(event) {
     event.preventDefault()
-    const step = 1
-
-    if(event.key){
+    if (
+        event.key === "ArrowLeft" ||
+        event.key === "ArrowRight" ||
+        event.key === "ArrowUp" ||
+        event.key === "ArrowDown") {
         msg.visible = false
     }
 
@@ -206,18 +212,52 @@ function arrowKey(event) {
         rotation = false
         if (direction.x == step)
             return
-        snake.children[0].rotation.y = -Math.PI / 2
+        goLeft()
+    }
+    if (event.key === "ArrowRight") {
+        rotation = false
+        if (direction.x == -step)
+            return
+        goRight()
+    }
+    if (event.key === "ArrowUp") {
+        rotation = true
+        if (direction.z == step)
+            return
+        goUp()
+    }
+    if (event.key === "ArrowDown") {
+        rotation = true
+        if (direction.z == -step)
+            return
+        goDown()
+    }
+}
+
+hammertime.on('swipeleft', function(ev) {
+	goLeft()
+})
+hammertime.on('swipeRight', function(ev) {
+	goRight()
+})
+hammertime.on('swipeUp', function(ev) {
+	goUp()
+})
+hammertime.on('swipeDown', function(ev) {
+	goDown()
+})
+
+function goLeft(){
+    snake.children[0].rotation.y = -Math.PI / 2
         direction.x = -step
         direction.z = 0
         rtCamera.lookAt(
             snake.children[0].position.x - param.boardSize,
             param.size / 2,
             snake.children[0].position.z)
-    }
-    if (event.key === "ArrowRight") {
-        rotation = false
-        if (direction.x == -step)
-            return
+}
+
+function goRight(){
         snake.children[0].rotation.y = Math.PI / 2
         direction.x = step
         direction.z = 0
@@ -225,31 +265,26 @@ function arrowKey(event) {
             snake.children[0].position.x + param.boardSize,
             param.size / 2,
             snake.children[0].position.z)
-    }
-    if (event.key === "ArrowUp") {
-        rotation = true
-        if (direction.z == step)
-            return
-        snake.children[0].rotation.y = Math.PI
+}
+
+function goUp(){
+    snake.children[0].rotation.y = Math.PI
         direction.z = -step
         direction.x = 0
         rtCamera.lookAt(
             snake.children[0].position.x,
             param.size / 2,
             snake.children[0].position.z - param.boardSize)
-    }
-    if (event.key === "ArrowDown") {
-        rotation = true
-        if (direction.z == -step)
-            return
-        snake.children[0].rotation.y = 0
+}
+
+function goDown(){
+    snake.children[0].rotation.y = 0
         direction.z = step
         direction.x = 0
         rtCamera.lookAt(
             snake.children[0].position.x,
             param.size / 2,
             snake.children[0].position.z + param.boardSize)
-    }
 }
 
 setInterval(() => {
@@ -267,8 +302,8 @@ setInterval(() => {
     }
 }, 250)
 
-function isTouchDevice(){
-    return ( 'ontouchstart' in window ) ||
-                   ( navigator.maxTouchPoints > 0 ) ||
-                   ( navigator.msMaxTouchPoints > 0 );
+function isTouchDevice() {
+    return ('ontouchstart' in window) ||
+        (navigator.maxTouchPoints > 0) ||
+        (navigator.msMaxTouchPoints > 0);
 }
