@@ -10,6 +10,8 @@ import Snake from "./Snake"
 import Clock from './Clock'
 import { param } from '../param'
 import 'hammerjs'
+import * as Hammer from 'hammerjs'
+
 
 const direction = new THREE.Vector3(0, 0, 0)
 const listener = new THREE.AudioListener()
@@ -52,8 +54,8 @@ export default class World {
 
     playGiude() {
         if (isTouchDevice() === true) {
-            this.application.camera.controls.enablePan = false
             this.text.getMsg("Swipe!")
+            this.application.camera.controls.enabled = false
         } else {
             this.text.getMsg("Press any arrow key!")
         }
@@ -234,7 +236,8 @@ function arrowKey(event) {
     }
 }
 
-Hammer(canvas).on('swipeleft, swiperight, swipeup, swipedown', function(ev) {
+const hammertime = new Hammer(canvas, Hammer.Swipe);
+hammertime.on('swipeleft, swiperight, swipeup, swipedown', function(ev) {
     if (ev.type == 'swipeleft') goLeft()
     if (ev.type == 'swiperight') goRight()
     if (ev.type == 'swipeup') goUp()
