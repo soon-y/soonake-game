@@ -19,6 +19,7 @@ const snake = new THREE.Group()
 let rtCamera, msg
 let ready = false
 let rotation = false
+let ignore = false
 document.addEventListener("keydown", arrowKey)
 const canvas = document.querySelector('canvas.webgl')
 
@@ -199,6 +200,19 @@ function samePositionAsSnake(x, z) {
     return false
 }
 
+function setIgnore() {
+    /**
+     * to ignore direction changes while snake is moving 
+     */
+    if (ignore) {
+        return;
+    }
+    ignore = true;
+    setTimeout(() => {
+        ignore = false;
+    }, 200)
+}
+
 const step = 1
 function arrowKey(event) {
     event.preventDefault()
@@ -209,87 +223,97 @@ function arrowKey(event) {
         event.key === "ArrowDown") {
         msg.visible = false
     }
-
     if (event.key === "ArrowLeft") {
         rotation = false
         if (direction.x == step)
             return
-        goLeft()
+        if (!ignore) goLeft()
+        setIgnore()
     }
     if (event.key === "ArrowRight") {
         rotation = false
         if (direction.x == -step)
             return
-        goRight()
+        if (!ignore) goRight()
+        setIgnore()
     }
     if (event.key === "ArrowUp") {
         rotation = true
         if (direction.z == step)
             return
-        goUp()
+        if (!ignore) goUp()
+        setIgnore()
     }
     if (event.key === "ArrowDown") {
         rotation = true
         if (direction.z == -step)
             return
-        goDown()
+        if (!ignore) goDown()
+        setIgnore()
     }
 }
 
 // swipe gestures
 let hammertime = new Hammer(canvas);
 hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
-hammertime.on('swipeleft', function(ev) {
-    goLeft()
+hammertime.on('swipe', function (ev) {
+    msg.visible = false
 })
-hammertime.on('swiperight', function(ev) {
-    goRight()
+hammertime.on('swipeleft', function (ev) {
+    if (!ignore) goLeft()
+    setIgnore()
 })
-hammertime.on('swipeup', function(ev) {
-    goUp()
+hammertime.on('swiperight', function (ev) {
+    if (!ignore) goRight()
+    setIgnore()
 })
-hammertime.on('swipedown', function(ev) {
-    goDown()
+hammertime.on('swipeup', function (ev) {
+    if (!ignore) goUp()
+    setIgnore()
+})
+hammertime.on('swipedown', function (ev) {
+    if(!ignore) goDown()
+    setIgnore()
 })
 
-function goLeft(){
+function goLeft() {
     snake.children[0].rotation.y = -Math.PI / 2
-        direction.x = -step
-        direction.z = 0
-        rtCamera.lookAt(
-            snake.children[0].position.x - param.boardSize,
-            param.size / 2,
-            snake.children[0].position.z)
+    direction.x = -step
+    direction.z = 0
+    rtCamera.lookAt(
+        snake.children[0].position.x - param.boardSize,
+        param.size / 2,
+        snake.children[0].position.z)
 }
 
-function goRight(){
-        snake.children[0].rotation.y = Math.PI / 2
-        direction.x = step
-        direction.z = 0
-        rtCamera.lookAt(
-            snake.children[0].position.x + param.boardSize,
-            param.size / 2,
-            snake.children[0].position.z)
+function goRight() {
+    snake.children[0].rotation.y = Math.PI / 2
+    direction.x = step
+    direction.z = 0
+    rtCamera.lookAt(
+        snake.children[0].position.x + param.boardSize,
+        param.size / 2,
+        snake.children[0].position.z)
 }
 
-function goUp(){
+function goUp() {
     snake.children[0].rotation.y = Math.PI
-        direction.z = -step
-        direction.x = 0
-        rtCamera.lookAt(
-            snake.children[0].position.x,
-            param.size / 2,
-            snake.children[0].position.z - param.boardSize)
+    direction.z = -step
+    direction.x = 0
+    rtCamera.lookAt(
+        snake.children[0].position.x,
+        param.size / 2,
+        snake.children[0].position.z - param.boardSize)
 }
 
-function goDown(){
+function goDown() {
     snake.children[0].rotation.y = 0
-        direction.z = step
-        direction.x = 0
-        rtCamera.lookAt(
-            snake.children[0].position.x,
-            param.size / 2,
-            snake.children[0].position.z + param.boardSize)
+    direction.z = step
+    direction.x = 0
+    rtCamera.lookAt(
+        snake.children[0].position.x,
+        param.size / 2,
+        snake.children[0].position.z + param.boardSize)
 }
 
 setInterval(() => {
