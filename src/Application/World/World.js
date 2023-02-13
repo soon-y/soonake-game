@@ -10,7 +10,6 @@ import Snake from "./Snake"
 import Clock from './Clock'
 import { param } from '../param'
 import 'hammerjs'
-import * as Hammer from 'hammerjs'
 
 
 const direction = new THREE.Vector3(0, 0, 0)
@@ -236,12 +235,18 @@ function arrowKey(event) {
     }
 }
 
-const hammertime = new Hammer(canvas, Hammer.Swipe);
-hammertime.on('swipeleft, swiperight, swipeup, swipedown', function(ev) {
-    if (ev.type == 'swipeleft') goLeft()
-    if (ev.type == 'swiperight') goRight()
-    if (ev.type == 'swipeup') goUp()
-    if (ev.type == 'swipedown') goDown()
+let hammertime = new Hammer(canvas);
+hammertime.on('swipeleft', function(ev) {
+    goLeft()
+})
+hammertime.on('swiperight', function(ev) {
+    goRight()
+})
+hammertime.on('swipeup', function(ev) {
+    goUp()
+})
+hammertime.on('swipeDown', function(ev) {
+    goDown()
 })
 
 function goLeft(){
