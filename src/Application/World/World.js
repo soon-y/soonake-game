@@ -54,6 +54,8 @@ export default class World {
     playGiude() {
         if (isTouchDevice() === true) {
             this.text.getMsg("Swipe!")
+            this.application.camera.controls.enabled = false
+            this.application.camera.controls.enableZoom = true
         } else {
             this.text.getMsg("Press any arrow key!")
         }
