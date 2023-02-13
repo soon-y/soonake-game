@@ -54,7 +54,6 @@ export default class World {
     playGiude() {
         if (isTouchDevice() === true) {
             this.text.getMsg("Swipe!")
-            this.application.camera.controls.enabled = false
         } else {
             this.text.getMsg("Press any arrow key!")
         }
@@ -235,7 +234,9 @@ function arrowKey(event) {
     }
 }
 
+// swipe gestures
 let hammertime = new Hammer(canvas);
+hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
 hammertime.on('swipeleft', function(ev) {
     goLeft()
 })
@@ -245,7 +246,7 @@ hammertime.on('swiperight', function(ev) {
 hammertime.on('swipeup', function(ev) {
     goUp()
 })
-hammertime.on('swipeDown', function(ev) {
+hammertime.on('swipedown', function(ev) {
     goDown()
 })
 
