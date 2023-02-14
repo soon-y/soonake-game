@@ -23,13 +23,21 @@ export default class PlayField {
         this.textures = {}
         this.textures.color = this.resources.items.fieldTexture
         this.textures.normal = this.resources.items.fieldNormal
+        this.textures.rough = this.resources.items.fieldRough
+        this.textures.spec = this.resources.items.fieldSpec
         this.textures.color.encoding = THREE.sRGBEncoding
         this.textures.color.wrapS = THREE.RepeatWrapping
         this.textures.color.wrapT = THREE.RepeatWrapping
-        this.textures.color.repeat.set(2, 2)
+        this.textures.color.repeat.set(3, 3)
         this.textures.normal.wrapS = THREE.RepeatWrapping
         this.textures.normal.wrapT = THREE.RepeatWrapping
-        this.textures.normal.repeat.set(2, 2)
+        this.textures.normal.repeat.set(3, 3)
+        this.textures.rough.wrapS = THREE.RepeatWrapping
+        this.textures.rough.wrapT = THREE.RepeatWrapping
+        this.textures.rough.repeat.set(3, 3)
+        this.textures.spec.wrapS = THREE.RepeatWrapping
+        this.textures.spec.wrapT = THREE.RepeatWrapping
+        this.textures.spec.repeat.set(3, 3)
     }
 
     setMaterial() {
@@ -37,6 +45,8 @@ export default class PlayField {
             color: '#ffffff',
             map: this.textures.color,
             normalMap: this.textures.normal,
+            roughnessMap: this.textures.rough,
+            specularMap: this.textures.spec,            
             side: THREE.DoubleSide
         })
     }
