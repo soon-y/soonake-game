@@ -13,8 +13,8 @@ import 'hammerjs'
 
 
 const direction = new THREE.Vector3(0, 0, 0)
-// const listener = new THREE.AudioListener()
-// const sound = new THREE.Audio(listener)
+const listener = new THREE.AudioListener()
+const sound = new THREE.Audio(listener)
 const snake = new THREE.Group()
 let rtCamera, msg
 let ready = false
@@ -133,10 +133,10 @@ export default class World {
 
     gameOver() {
         ready = false
-        // this.audioLoader.load('./sound/gameOver.mp3', function (buffer) {
-        //     sound.setBuffer(buffer)
-        //     sound.play();
-        // });
+        this.audioLoader.load('./sound/gameOver.mp3', function (buffer) {
+            sound.setBuffer(buffer)
+            sound.play();
+        });
         alert("Game Over.\nSnake length: " + this.snakeLength);
         this.start();
     }
@@ -164,10 +164,10 @@ export default class World {
             if (snake.children[0].position.x == this.apple.position.x &&
                 snake.children[0].position.z == this.apple.position.z) {
                 this.snakeLength++
-                // this.audioLoader.load('./sound/appleBite.wav', function (buffer) {
-                //     sound.setBuffer(buffer)
-                //     sound.play()
-                // })
+                this.audioLoader.load('./sound/appleBite.wav', function (buffer) {
+                    sound.setBuffer(buffer)
+                    sound.play()
+                })
                 if (this.snakeLength < 10) {
                     this.text.refreshText("0" + this.snakeLength.toString())
                 } else {
@@ -252,36 +252,36 @@ function arrowKey(event) {
     }
 }
 
-// swipe gestures
-// let hammertime = new Hammer(canvas);
-// hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
-// hammertime.on('swipe', function (ev) {
-//     swipeSnake
-// })
+//swipe gestures
+let hammertime = new Hammer(canvas);
+hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+hammertime.on('swipe', function (ev) {
+    swipeSnake
+})
 
-// function swipeSnake(){
-//     if (isTouchDevice){
-//         hammertime.on('swipe', function (ev) {
-//             msg.visible = false
-//         })
-//         hammertime.on('swipeleft', function (ev) {
-//             if (!ignore) goLeft()
-//             setIgnore()
-//         })
-//         hammertime.on('swiperight', function (ev) {
-//             if (!ignore) goRight()
-//             setIgnore()
-//         })
-//         hammertime.on('swipeup', function (ev) {
-//             if (!ignore) goUp()
-//             setIgnore()
-//         })
-//         hammertime.on('swipedown', function (ev) {
-//             if(!ignore) goDown()
-//             setIgnore()
-//         })
-//     }
-// }
+function swipeSnake(){
+    if (isTouchDevice){
+        hammertime.on('swipe', function (ev) {
+            msg.visible = false
+        })
+        hammertime.on('swipeleft', function (ev) {
+            if (!ignore) goLeft()
+            setIgnore()
+        })
+        hammertime.on('swiperight', function (ev) {
+            if (!ignore) goRight()
+            setIgnore()
+        })
+        hammertime.on('swipeup', function (ev) {
+            if (!ignore) goUp()
+            setIgnore()
+        })
+        hammertime.on('swipedown', function (ev) {
+            if(!ignore) goDown()
+            setIgnore()
+        })
+    }
+}
 
 function goLeft() {
     snake.children[0].rotation.y = -Math.PI / 2
