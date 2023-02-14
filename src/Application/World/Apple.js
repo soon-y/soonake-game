@@ -19,7 +19,6 @@ export default class Apple {
     setTextures() {
         this.textures = {}
         this.textures.color = this.resources.items.appleDiff
-        this.textures.normal = this.resources.items.appleNormal
         this.textures.rough = this.resources.items.appleRough
         this.textures.color.encoding = THREE.sRGBEncoding
     }
@@ -27,16 +26,14 @@ export default class Apple {
     setMaterial() {
         this.material = new THREE.MeshStandardMaterial({
             map: this.textures.color,
-            normalMap: this.textures.normal,
             roughnessMap: this.textures.rough
         })
         this.object.children.forEach(child => child.material = this.material)
     }
 
     setModel() {
+        this.object.rotation.y = Math.PI
         this.instance.add(this.object);
-        this.object.scale.set(0.012, 0.012, 0.012)
         this.object.traverse(function (child) { child.castShadow = true; })
-        this.object.position.y = param.size / 2
     }
 }
