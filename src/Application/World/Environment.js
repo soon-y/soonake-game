@@ -24,8 +24,8 @@ export default class Environment {
         this.light.shadow.camera.far = 50
         this.light.position.set(6, 10, 6)
 
-        this.helper = new THREE.CameraHelper(this.light.shadow.camera)
-        this.light.add(this.helper)
+        // this.helper = new THREE.CameraHelper(this.light.shadow.camera)
+        // this.light.add(this.helper)
 
         this.scene.add(this.light)
     }
