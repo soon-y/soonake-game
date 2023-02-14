@@ -1,15 +1,10 @@
 export default [
     {
-        name: 'environmentMapTexture',
-        type: 'cubeTexture',
+        name: 'environmentMapTexture2',
+        type: 'texture',
         path:
         [
-            'textures/environmentMap/px.jpg',
-            'textures/environmentMap/nx.jpg',
-            'textures/environmentMap/py.jpg',
-            'textures/environmentMap/ny.jpg',
-            'textures/environmentMap/pz.jpg',
-            'textures/environmentMap/nz.jpg'
+            'textures/environmentMap/evMap.jpg'
         ]
     },
     {
@@ -17,7 +12,7 @@ export default [
         type: 'texture',
         path:
         [
-            'textures/floorMap/FloorsCheckerboard_Normal.jpg'
+            'textures/floorMap/FloorsCheckerboard_Normal.png'
         ]
     },
     {
@@ -27,7 +22,23 @@ export default [
         [
             'textures/floorMap/FloorsCheckerboard_Diffuse.jpg'
         ]
-    },    
+    },   
+    {
+        name: 'fieldRough',
+        type: 'texture',
+        path:
+        [
+            'textures/floorMap/FloorsCheckerboard_Rough.jpg'
+        ]
+    },   
+    {
+        name: 'fieldSpec',
+        type: 'texture',
+        path:
+        [
+            'textures/floorMap/FloorsCheckerboard_Spec.jpg'
+        ]
+    },   
     {
         name: 'floorTexture',
         type: 'texture',
@@ -47,17 +58,12 @@ export default [
     {
         name: 'appleDiff',
         type: 'texture',
-        path: 'textures/appleMap/Apple_BaseColor.png'
-    },
-    {
-        name: 'appleNormal',
-        type: 'texture',
-        path: 'textures/appleMap/Apple_Normal.png'
+        path: 'textures/appleMap/Apple_BaseColor.jpg'
     },
     {
         name: 'appleRough',
         type: 'texture',
-        path: 'textures/appleMap/Apple_Roughness.png'
+        path: 'textures/appleMap/Apple_Roughness.jpg'
     },
     {
         name: 'wall',
