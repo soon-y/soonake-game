@@ -30,15 +30,7 @@ export default [
         [
             'textures/floorMap/FloorsCheckerboard_Rough.jpg'
         ]
-    },   
-    {
-        name: 'fieldSpec',
-        type: 'texture',
-        path:
-        [
-            'textures/floorMap/FloorsCheckerboard_Spec.jpg'
-        ]
-    },   
+    },     
     {
         name: 'floorTexture',
         type: 'texture',
