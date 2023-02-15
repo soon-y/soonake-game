@@ -252,28 +252,39 @@ function arrowKey(event) {
     }
 }
 
-// swipe gestures
+//swipe gestures
 let hammertime = new Hammer(canvas);
 hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
 hammertime.on('swipe', function (ev) {
-    msg.visible = false
+    swipeSnake
 })
-hammertime.on('swipeleft', function (ev) {
-    if (!ignore) goLeft()
-    setIgnore()
-})
-hammertime.on('swiperight', function (ev) {
-    if (!ignore) goRight()
-    setIgnore()
-})
-hammertime.on('swipeup', function (ev) {
-    if (!ignore) goUp()
-    setIgnore()
-})
-hammertime.on('swipedown', function (ev) {
-    if(!ignore) goDown()
-    setIgnore()
-})
+
+function swipeSnake(){
+    /**
+     * swiping guestures valid only for touch devices
+     */
+    if (isTouchDevice){
+        hammertime.on('swipe', function (ev) {
+            msg.visible = false
+        })
+        hammertime.on('swipeleft', function (ev) {
+            if (!ignore) goLeft()
+            setIgnore()
+        })
+        hammertime.on('swiperight', function (ev) {
+            if (!ignore) goRight()
+            setIgnore()
+        })
+        hammertime.on('swipeup', function (ev) {
+            if (!ignore) goUp()
+            setIgnore()
+        })
+        hammertime.on('swipedown', function (ev) {
+            if(!ignore) goDown()
+            setIgnore()
+        })
+    }
+}
 
 function goLeft() {
     snake.children[0].rotation.y = -Math.PI / 2
