@@ -199,18 +199,18 @@ function samePositionAsSnake(x, z) {
     return false
 }
 
-function setIgnore() {
-    /**
-     * to ignore direction changes while snake is moving 
-     */
-    if (ignore) {
-        return;
-    }
-    ignore = true;
-    setTimeout(() => {
-        ignore = false;
-    }, 200)
-}
+// function setIgnore() {
+//     /**
+//      * to ignore direction changes while snake is moving 
+//      */
+//     if (ignore) {
+//         return;
+//     }
+//     ignore = true;
+//     setTimeout(() => {
+//         ignore = false;
+//     }, 200)
+// }
 
 const step = 1
 function arrowKey(event) {
@@ -266,19 +266,19 @@ function swipeSnake(){
         })
         hammertime.on('swipeleft', function (ev) {
             if (!ignore) goLeft()
-            setIgnore()
+            //setIgnore()
         })
         hammertime.on('swiperight', function (ev) {
             if (!ignore) goRight()
-            setIgnore()
+            //setIgnore()
         })
         hammertime.on('swipeup', function (ev) {
             if (!ignore) goUp()
-            setIgnore()
+            //setIgnore()
         })
         hammertime.on('swipedown', function (ev) {
             if(!ignore) goDown()
-            setIgnore()
+            //setIgnore()
         })
     }
 }
