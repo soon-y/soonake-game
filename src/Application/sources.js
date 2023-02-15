@@ -47,7 +47,7 @@ export default [
     {
         name: 'appleDiff',
         type: 'texture',
-        path: 'textures/appleMap/Apple_BaseColor.png'
+        path: 'textures/appleMap/Apple_BaseColor.jpg'
     },
     {
         name: 'appleNormal',
@@ -57,7 +57,7 @@ export default [
     {
         name: 'appleRough',
         type: 'texture',
-        path: 'textures/appleMap/Apple_Roughness.png'
+        path: 'textures/appleMap/Apple_Roughness.jpg'
     },
     {
         name: 'wall',
