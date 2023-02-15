@@ -17,7 +17,7 @@ export default [
         type: 'texture',
         path:
         [
-            'textures/floorMap/FloorsCheckerboard_Normal.jpg'
+            'textures/floorMap/FloorsCheckerboard_Normal.png'
         ]
     },
     {
@@ -27,7 +27,15 @@ export default [
         [
             'textures/floorMap/FloorsCheckerboard_Diffuse.jpg'
         ]
-    },    
+    },   
+    {
+        name: 'fieldRough',
+        type: 'texture',
+        path:
+        [
+            'textures/floorMap/FloorsCheckerboard_Rough.jpg'
+        ]
+    },  
     {
         name: 'floorTexture',
         type: 'texture',
@@ -48,11 +56,6 @@ export default [
         name: 'appleDiff',
         type: 'texture',
         path: 'textures/appleMap/Apple_BaseColor.jpg'
-    },
-    {
-        name: 'appleNormal',
-        type: 'texture',
-        path: 'textures/appleMap/Apple_Normal.png'
     },
     {
         name: 'appleRough',
