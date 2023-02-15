@@ -1,6 +1,5 @@
 import * as THREE from 'three'
 import Application from "../Application"
-import { param } from '../param';
 
 export default class Apple {
     constructor() {
@@ -26,14 +25,15 @@ export default class Apple {
     setMaterial() {
         this.material = new THREE.MeshStandardMaterial({
             map: this.textures.color,
-            roughnessMap: this.textures.rough
+            roughnessMap: this.textures.rough,
+            roughness: 2
         })
         this.object.children.forEach(child => child.material = this.material)
     }
 
     setModel() {
+        this.object.rotation.y = Math.PI
         this.instance.add(this.object);
         this.object.traverse(function (child) { child.castShadow = true; })
-
     }
 }
