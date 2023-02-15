@@ -26,7 +26,7 @@ export default class Apple {
         this.material = new THREE.MeshStandardMaterial({
             map: this.textures.color,
             roughnessMap: this.textures.rough,
-            roughness: 2
+            roughness: 1.4
         })
         this.object.children.forEach(child => child.material = this.material)
     }
