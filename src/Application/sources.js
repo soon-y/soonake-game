@@ -13,14 +13,6 @@ export default [
         ]
     },
     {
-        name: 'fieldNormal',
-        type: 'texture',
-        path:
-        [
-            'textures/floorMap/FloorsCheckerboard_Normal.png'
-        ]
-    },
-    {
         name: 'fieldTexture',
         type: 'texture',
         path:
