@@ -57,7 +57,7 @@ export default class BillBoard {
         this.screen = new THREE.Mesh(
             new THREE.PlaneGeometry(param.boardSize / 4 * 3, param.boardSize / 3),
             new THREE.MeshBasicMaterial({ 
-                color: '#5A5A5A',
+                color: '#848484',
                 map: this.rt.texture }))
 
         this.screen.position.y = param.boardSize / 6 + param.size * 2

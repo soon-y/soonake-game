@@ -56,6 +56,7 @@ export default class World {
         if (isTouchDevice() === true) {
             this.text.getMsg("Swipe!")
             this.application.camera.controls.enabled = false
+            this.application.camera.controls.enableZoom = true
         } else {
             this.text.getMsg("Press any arrow key!")
         }
@@ -104,7 +105,7 @@ export default class World {
 
     placeRtCam() {
         rtCamera.position.y = param.size / 2
-        rtCamera.position.z = param.size / 3
+        rtCamera.position.z = param.size / 2
         if (snake.children[0].position.x < 0) { // left
             snake.children[0].rotation.y = Math.PI / 2
             rtCamera.lookAt(
@@ -199,18 +200,18 @@ function samePositionAsSnake(x, z) {
     return false
 }
 
-// function setIgnore() {
-//     /**
-//      * to ignore direction changes while snake is moving 
-//      */
-//     if (ignore) {
-//         return;
-//     }
-//     ignore = true;
-//     setTimeout(() => {
-//         ignore = false;
-//     }, 200)
-// }
+function setIgnore() {
+    /**
+     * to ignore direction changes while snake is moving 
+     */
+    if (ignore) {
+        return;
+    }
+    ignore = true;
+    setTimeout(() => {
+        ignore = false;
+    }, 200)
+}
 
 const step = 1
 function arrowKey(event) {
@@ -252,36 +253,28 @@ function arrowKey(event) {
     }
 }
 
-//swipe gestures
+// swipe gestures
 let hammertime = new Hammer(canvas);
 hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
 hammertime.on('swipe', function (ev) {
-    swipeSnake
+    msg.visible = false
 })
-
-function swipeSnake(){
-    if (isTouchDevice){
-        hammertime.on('swipe', function (ev) {
-            msg.visible = false
-        })
-        hammertime.on('swipeleft', function (ev) {
-            if (!ignore) goLeft()
-            //setIgnore()
-        })
-        hammertime.on('swiperight', function (ev) {
-            if (!ignore) goRight()
-            //setIgnore()
-        })
-        hammertime.on('swipeup', function (ev) {
-            if (!ignore) goUp()
-            //setIgnore()
-        })
-        hammertime.on('swipedown', function (ev) {
-            if(!ignore) goDown()
-            //setIgnore()
-        })
-    }
-}
+hammertime.on('swipeleft', function (ev) {
+    if (!ignore) goLeft()
+    setIgnore()
+})
+hammertime.on('swiperight', function (ev) {
+    if (!ignore) goRight()
+    setIgnore()
+})
+hammertime.on('swipeup', function (ev) {
+    if (!ignore) goUp()
+    setIgnore()
+})
+hammertime.on('swipedown', function (ev) {
+    if(!ignore) goDown()
+    setIgnore()
+})
 
 function goLeft() {
     snake.children[0].rotation.y = -Math.PI / 2
