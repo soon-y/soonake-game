@@ -17,12 +17,12 @@ export default class Environment {
         this.light.castShadow = true
         this.light.shadow.intensity = 0
         this.light.shadow.camera.bottom = -10
-        this.light.shadow.camera.top = 20
+        this.light.shadow.camera.top = 10
         this.light.shadow.camera.left = -10
         this.light.shadow.camera.right = 10
         this.light.shadow.camera.near = 10
-        this.light.shadow.camera.far = 50
-        this.light.position.set(6, 10, 6)
+        this.light.shadow.camera.far = 30
+        this.light.position.set(-10, 20, -5)
 
         this.scene.add(this.light)
     }
@@ -30,9 +30,9 @@ export default class Environment {
     setEnvironmentMap() {
         this.environmentMap = {}
         this.environmentMap.intensity = 1
-        this.environmentMap.texture = this.resources.items.environmentMapTexture2
-        this.environmentMap.texture.mapping = THREE.EquirectangularReflectionMapping
+        this.environmentMap.texture = this.resources.items.environmentMapTexture
         this.environmentMap.texture.encoding = THREE.sRGBEncoding
+
         this.scene.environment = this.environmentMap.texture
 
         this.environmentMap.updateMaterials = () => {
