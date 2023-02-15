@@ -104,7 +104,7 @@ export default class World {
 
     placeRtCam() {
         rtCamera.position.y = param.size / 2
-        rtCamera.position.z = param.size / 2
+        rtCamera.position.z = param.size / 3
         if (snake.children[0].position.x < 0) { // left
             snake.children[0].rotation.y = Math.PI / 2
             rtCamera.lookAt(
