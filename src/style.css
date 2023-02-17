@@ -37,9 +37,9 @@ body {
     right: 0;
     top: 50%;
     width: 98%;
-    height: 20px;
+    height: 6vh;
     background: linear-gradient(to right, rgb(255, 0, 0), rgb(201, 20, 0));
-    clip-path: polygon(100% 0%, 100% 51%, 100% 100%, 0 100%, 5% 50%, 0 0);
+    clip-path: polygon(100% 0%, 100% 50%, 100% 100%, 0 100%, 5% 50%, 0 0);
     transform: translateX(100%);
     transition: transfrom 0.5s;
     will-change: transform;
@@ -49,3 +49,9 @@ body {
     transform-origin: 100% 0;
     transition: transform 1s ease-in;
 }
+
+@media only screen and (max-width: 600px) {
+    .loading-snake {
+        height: 20px;
+    }
+  }
