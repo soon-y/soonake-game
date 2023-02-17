@@ -256,6 +256,8 @@ function arrowKey(event) {
 let hammertime = new Hammer(canvas);
 hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
 hammertime.on('swipe', function (ev) {
+    if(msg.visible)
+        msg.visible = false
     swipeSnake
 })
 
@@ -264,9 +266,6 @@ function swipeSnake(){
      * swiping guestures valid only for touch devices
      */
     if (isTouchDevice){
-        hammertime.on('swipe', function (ev) {
-            msg.visible = false
-        })
         hammertime.on('swipeleft', function (ev) {
             if (!ignore) goLeft()
             setIgnore()
