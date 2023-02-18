@@ -53,12 +53,12 @@ export default class World {
     }
 
     playGiude() {
-        // if (isTouchDevice() === true) {
-        //     this.text.getMsg("Swipe!")
-        //     this.application.camera.controls.enabled = false
-        // } else {
-             this.text.getMsg("Press any arrow key!")
-        // }
+        if (isTouchDevice() === true) {
+            this.text.getMsg("Swipe!")
+            this.application.camera.controls.enabled = false
+        } else {
+            this.text.getMsg("Press any arrow key!")
+        }
         msg = this.text.msg
         msg.rotation.x = -Math.PI / 2
         msg.position.z = param.boardSize / 2 + param.size * 2
