@@ -30,6 +30,11 @@ export default class Renderer
         this.instance.setClearColor('#000000')
         this.instance.setSize(this.size.width, this.size.height)
         this.instance.setPixelRatio(this.size.pixelRatio)
+
+        this.aspect = this.size.width/this.size.height
+        if(this.aspect<1){
+            this.camera.instance.position.y = 14
+        }
     }
 
     resize()
