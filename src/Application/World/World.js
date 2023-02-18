@@ -32,6 +32,8 @@ export default class World {
         this.apple = new THREE.Group()
         this.body = new THREE.Group()
         rtCamera = this.application.rtCamera.instance
+        this.camera = this.application.camera.instance
+        this.camera.add(listener)
 
         // Wait for resources
         this.resources.on('ready', () => {
