@@ -135,7 +135,7 @@ export default class World {
     gameOver() {
         ready = false
         this.audioLoader.load('./sound/gameOver.mp3', function (buffer) {
-            const sound = new THREE.Audio(listener)
+            const sound = new THREE.PositionalAudio( listener )
             sound.setBuffer(buffer)
             sound.play();
         });
@@ -167,7 +167,7 @@ export default class World {
                 snake.children[0].position.z == this.apple.position.z) {
                 this.snakeLength++
                 this.audioLoader.load('./sound/appleBite.wav', function (buffer) {
-                    const sound = new THREE.Audio(listener)
+                    const sound = new THREE.PositionalAudio( listener )
                     sound.setBuffer(buffer)
                     sound.play()
                 })
