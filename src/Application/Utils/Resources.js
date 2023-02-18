@@ -7,7 +7,8 @@ import { gsap } from 'gsap'
 import Loading from "../Loading"
 import EventEmitter from "./EventEmitter"
 
-const loadingBar = document.querySelector('.loading-snake')
+const loadingBar = document.querySelector('.loading-bar')
+const snake = document.querySelector('.loading-snake')
 
 export default class Resources extends EventEmitter {
     constructor(sources) {
@@ -24,7 +25,9 @@ export default class Resources extends EventEmitter {
                 window.setTimeout(() => {
                     gsap.to(this.loading.material.uniforms.uAlpha, { duration: 3, value: 0 })
                     loadingBar.classList.add('ended')
-                    loadingBar.style.transform = `translateX(100%)`
+                    loadingBar.style.transform = `translate(100%, -50%)`
+                    snake.classList.add('ended')
+                    snake.style.transform = `translate(100%, -50%)`
                 }, 1000)
             },
 
@@ -32,7 +35,7 @@ export default class Resources extends EventEmitter {
             (itemUrl, itemsLoaded, itemsTotal) => {
                 this.loading.overlay.visible = true
                 const progress = 100 - itemsLoaded / itemsTotal * 100
-                loadingBar.style.transform = `translateX(${progress}%)`
+                loadingBar.style.transform = `translate(${progress}%, -50%)`
             }
         )
 
