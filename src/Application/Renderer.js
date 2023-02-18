@@ -33,7 +33,7 @@ export default class Renderer
 
         this.aspect = this.size.width/this.size.height
         if(this.aspect<1){
-            this.camera.instance.position.y = 14
+            this.camera.instance.position.set(0, 14, 8)
         }
     }
 
@@ -41,6 +41,13 @@ export default class Renderer
     {
         this.instance.setSize(this.size.width, this.size.height)
         this.instance.setPixelRatio(this.size.pixelRatio)
+
+        this.aspect = this.size.width/this.size.height
+        if(this.aspect<1){
+            this.camera.instance.position.set(0, 14, 8)
+        }else{
+            this.camera.instance.position.set(0, 10, 6)
+        }
     }
 
     update(){
