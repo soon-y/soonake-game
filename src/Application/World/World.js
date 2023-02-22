@@ -13,8 +13,7 @@ import 'hammerjs'
 
 
 const direction = new THREE.Vector3(0, 0, 0)
-const listener = new THREE.AudioListener()
-const audio = new THREE.Audio( listener )
+let listener, audio
 const snake = new THREE.Group()
 let rtCamera, msg
 let ready = false
@@ -33,7 +32,6 @@ export default class World {
         this.body = new THREE.Group()
         rtCamera = this.application.rtCamera.instance
         this.camera = this.application.camera.instance
-        this.camera.add(listener)
 
         // Wait for resources
         this.resources.on('ready', () => {
@@ -62,8 +60,6 @@ export default class World {
             this.text.getMsg("Press any arrow key!")
         }
         msg = this.text.msg
-        msg.rotation.x = -Math.PI / 2
-        msg.position.z = param.boardSize / 2 + param.size * 2
         this.scene.add(this.apple, snake, msg)
     }
 
@@ -223,6 +219,9 @@ function arrowKey(event) {
         event.key === "ArrowUp" ||
         event.key === "ArrowDown") {
         msg.visible = false
+        if (audio == null){
+            setAudio()
+        }
     }
     if (event.key === "ArrowLeft") {
         rotation = false
@@ -258,6 +257,9 @@ function arrowKey(event) {
 let hammertime = new Hammer(canvas);
 hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
 hammertime.on('swipe', function (ev) {
+    if (audio == null){
+        setAudio()
+    }
     if (msg.visible)
         msg.visible = false
 })
@@ -346,4 +348,9 @@ function isTouchDevice() {
     return ('ontouchstart' in window) ||
         (navigator.maxTouchPoints > 0) ||
         (navigator.msMaxTouchPoints > 0);
+}
+
+function setAudio() {
+    listener = new THREE.AudioListener()
+    audio = new THREE.Audio( listener )
 }
