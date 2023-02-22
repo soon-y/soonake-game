@@ -7,8 +7,8 @@ import { gsap } from 'gsap'
 import Loading from "../Loading"
 import EventEmitter from "./EventEmitter"
 
-const loadingBar = document.querySelector('.loading-bar')
-const snake = document.querySelector('.loading-snake')
+// const loadingBar = document.querySelector('.loading-bar')
+// const snake = document.querySelector('.loading-snake')
 
 export default class Resources extends EventEmitter {
     constructor(sources) {
@@ -18,26 +18,26 @@ export default class Resources extends EventEmitter {
         this.sources = sources
 
         //Setup
-        this.loading = new Loading()
-        this.loadingManager = new THREE.LoadingManager(
-            //Loaded
-            () => {
-                window.setTimeout(() => {
-                    gsap.to(this.loading.material.uniforms.uAlpha, { duration: 3, value: 0 })
-                    loadingBar.classList.add('ended')
-                    loadingBar.style.transform = `translate(100%, -50%)`
-                    snake.classList.add('ended')
-                    snake.style.transform = `translate(100%, -50%)`
-                }, 1000)
-            },
+        //this.loading = new Loading()
+        // this.loadingManager = new THREE.LoadingManager(
+        //     //Loaded
+        //     () => {
+        //         window.setTimeout(() => {
+        //             //gsap.to(this.loading.material.uniforms.uAlpha, { duration: 3, value: 0 })
+        //             loadingBar.classList.add('ended')
+        //             loadingBar.style.transform = `translate(100%, -50%)`
+        //             snake.classList.add('ended')
+        //             snake.style.transform = `translate(100%, -50%)`
+        //         }, 1000)
+        //     },
 
-            //progress
-            (itemUrl, itemsLoaded, itemsTotal) => {
-                this.loading.overlay.visible = true
-                const progress = 100 - itemsLoaded / itemsTotal * 100
-                loadingBar.style.transform = `translate(${progress}%, -50%)`
-            }
-        )
+        //     //progress
+        //     (itemUrl, itemsLoaded, itemsTotal) => {
+        //         //this.loading.overlay.visible = true
+        //         const progress = 100 - itemsLoaded / itemsTotal * 100
+        //         loadingBar.style.transform = `translate(${progress}%, -50%)`
+        //     }
+        // )
 
         this.items = {}
         this.toLoad = this.sources.length
