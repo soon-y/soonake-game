@@ -11,7 +11,7 @@ import Clock from './Clock'
 import { param } from '../param'
 import 'hammerjs'
 
-let audioOver, audioApple, listenerOver, listenerApple, camera
+let audioApple, audioOver, camera
 const direction = new THREE.Vector3(0, 0, 0)
 const snake = new THREE.Group()
 let rtCamera, msg
@@ -25,8 +25,6 @@ export default class World {
     constructor() {
         this.application = new Application()
         this.scene = this.application.scene
-        this.audioLoaderOver = new THREE.AudioLoader()
-        this.audioLoaderApple = new THREE.AudioLoader()
         this.resources = this.application.resources
         this.apple = new THREE.Group()
         this.body = new THREE.Group()
@@ -128,10 +126,8 @@ export default class World {
     }
 
     gameOver() {
-        this.audioLoaderOver.load('./sound/gameOver.wav', function (buffer) {
-            audioOver.setBuffer(buffer)
-            audioOver.play();
-        });
+        if(audioOver)
+        audioOver.play()
         alert("Game Over.\nSnake length: " + this.snakeLength);
         this.start();
     }
@@ -159,10 +155,9 @@ export default class World {
             if (snake.children[0].position.x == this.apple.position.x &&
                 snake.children[0].position.z == this.apple.position.z) {
                 this.snakeLength++
-                this.audioLoaderApple.load('./sound/appleBite.wav', function (buffer) {
-                    audioApple.setBuffer(buffer)
-                    audioApple.play()
-                })
+                if(audioApple)
+                audioApple.play()
+
                 if (this.snakeLength < 10) {
                     this.text.refreshText("0" + this.snakeLength.toString())
                 } else {
@@ -253,30 +248,30 @@ function arrowKey(event) {
 let hammertime = new Hammer(canvas);
 hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
 hammertime.on('swipe', function (ev) {
-    if (msg.visible && ready)
+    if (msg.visible && ready && isTouchDevice())
         msg.visible = false
 })
 
 hammertime.on('swipeleft', function (ev) {
-    if (isTouchDevice && !ignore && ready) {
+    if (isTouchDevice() && !ignore && ready) {
         goLeft()
     }
     setIgnore()
 })
 hammertime.on('swiperight', function (ev) {
-    if (isTouchDevice && !ignore && ready) {
+    if (isTouchDevice() && !ignore && ready) {
         goRight()
     }
     setIgnore()
 })
 hammertime.on('swipeup', function (ev) {
-    if (isTouchDevice && !ignore && ready) {
+    if (isTouchDevice() && !ignore && ready) {
         goUp()
     }
     setIgnore()
 })
 hammertime.on('swipedown', function (ev) {
-    if (isTouchDevice && !ignore && ready) {
+    if (isTouchDevice() && !ignore && ready) {
         goDown()
     }
     setIgnore()
@@ -344,14 +339,29 @@ function isTouchDevice() {
 }
 
 document.getElementById("startButton").onclick = function () {
-    listenerApple = new THREE.AudioListener()
-    audioApple = new THREE.Audio(listenerApple)
-    listenerOver = new THREE.AudioListener()
-    audioOver = new THREE.Audio(listenerOver)
     if (isTouchDevice() === true) {
         camera.controls.enabled = false
         camera.instance.position.set(0, 14, 8)
     }
+
+    if (audioApple == null) setAudio()
+
     document.getElementById("startButton").style.display = 'none'
     ready = true
+}
+
+function setAudio(){
+    const audioLoader = new THREE.AudioLoader()
+
+    audioLoader.load('./sound/gameOver.wav', function (buffer) {
+        const listener = new THREE.AudioListener()
+        audioOver = new THREE.Audio(listener)
+        audioOver.setBuffer(buffer)
+    })
+
+    audioLoader.load('./sound/appleBite.wav', function (buffer) {
+        const listener = new THREE.AudioListener()
+        audioApple = new THREE.Audio(listener)
+        audioApple.setBuffer(buffer)
+    })
 }
