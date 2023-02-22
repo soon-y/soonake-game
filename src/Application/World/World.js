@@ -11,9 +11,8 @@ import Clock from './Clock'
 import { param } from '../param'
 import 'hammerjs'
 
-
+let audio, listener, camera
 const direction = new THREE.Vector3(0, 0, 0)
-let listener, audio
 const snake = new THREE.Group()
 let rtCamera, msg
 let ready = false
@@ -31,7 +30,7 @@ export default class World {
         this.apple = new THREE.Group()
         this.body = new THREE.Group()
         rtCamera = this.application.rtCamera.instance
-        this.camera = this.application.camera.instance
+        camera = this.application.camera
 
         // Wait for resources
         this.resources.on('ready', () => {
@@ -55,7 +54,6 @@ export default class World {
     playGiude() {
         if (isTouchDevice() === true) {
             this.text.getMsg("Swipe!")
-            this.application.camera.controls.enabled = false
         } else {
             this.text.getMsg("Press any arrow key!")
         }
@@ -78,7 +76,6 @@ export default class World {
         this.placeSnake()
         this.placeApple()
         this.placeRtCam()
-        ready = true
     }
 
     placeSnake() {
@@ -213,43 +210,42 @@ function setIgnore() {
 const step = 1
 function arrowKey(event) {
     event.preventDefault()
-    if (
-        event.key === "ArrowLeft" ||
-        event.key === "ArrowRight" ||
-        event.key === "ArrowUp" ||
-        event.key === "ArrowDown") {
-        msg.visible = false
-        if (audio == null){
-            setAudio()
+    if (ready) {
+        if (
+            event.key === "ArrowLeft" ||
+            event.key === "ArrowRight" ||
+            event.key === "ArrowUp" ||
+            event.key === "ArrowDown") {
+            msg.visible = false
         }
-    }
-    if (event.key === "ArrowLeft") {
-        rotation = false
-        if (direction.x == step)
-            return
-        if (!ignore) goLeft()
-        setIgnore()
-    }
-    if (event.key === "ArrowRight") {
-        rotation = false
-        if (direction.x == -step)
-            return
-        if (!ignore) goRight()
-        setIgnore()
-    }
-    if (event.key === "ArrowUp") {
-        rotation = true
-        if (direction.z == step)
-            return
-        if (!ignore) goUp()
-        setIgnore()
-    }
-    if (event.key === "ArrowDown") {
-        rotation = true
-        if (direction.z == -step)
-            return
-        if (!ignore) goDown()
-        setIgnore()
+        if (event.key === "ArrowLeft") {
+            rotation = false
+            if (direction.x == step)
+                return
+            if (!ignore) goLeft()
+            setIgnore()
+        }
+        if (event.key === "ArrowRight") {
+            rotation = false
+            if (direction.x == -step)
+                return
+            if (!ignore) goRight()
+            setIgnore()
+        }
+        if (event.key === "ArrowUp") {
+            rotation = true
+            if (direction.z == step)
+                return
+            if (!ignore) goUp()
+            setIgnore()
+        }
+        if (event.key === "ArrowDown") {
+            rotation = true
+            if (direction.z == -step)
+                return
+            if (!ignore) goDown()
+            setIgnore()
+        }
     }
 }
 
@@ -257,33 +253,30 @@ function arrowKey(event) {
 let hammertime = new Hammer(canvas);
 hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
 hammertime.on('swipe', function (ev) {
-    if (audio == null){
-        setAudio()
-    }
-    if (msg.visible)
+    if (msg.visible && ready)
         msg.visible = false
 })
 
 hammertime.on('swipeleft', function (ev) {
-    if (isTouchDevice && !ignore) {
+    if (isTouchDevice && !ignore && ready) {
         goLeft()
     }
     setIgnore()
 })
 hammertime.on('swiperight', function (ev) {
-    if (isTouchDevice && !ignore) {
+    if (isTouchDevice && !ignore && ready) {
         goRight()
     }
     setIgnore()
 })
 hammertime.on('swipeup', function (ev) {
-    if (isTouchDevice && !ignore) {
+    if (isTouchDevice && !ignore && ready) {
         goUp()
     }
     setIgnore()
 })
 hammertime.on('swipedown', function (ev) {
-    if (isTouchDevice && !ignore) {
+    if (isTouchDevice && !ignore && ready) {
         goDown()
     }
     setIgnore()
@@ -350,7 +343,13 @@ function isTouchDevice() {
         (navigator.msMaxTouchPoints > 0);
 }
 
-function setAudio() {
+document.getElementById("startButton").onclick = function () {
     listener = new THREE.AudioListener()
-    audio = new THREE.Audio( listener )
+    audio = new THREE.Audio(listener)
+    if (isTouchDevice() === true) {
+        camera.controls.enabled = false
+        camera.instance.position.set(0, 14, 8)
+    }
+    document.getElementById("startButton").style.display = 'none'
+    ready = true
 }
