@@ -10,12 +10,10 @@ import rtCamera from './rtCamera'
 import Loading from './Loading'
 
 let instance = null
-const overlay = document.getElementById( 'overlay' )
 
 export default class Application {
     constructor(canvas) {
-        overlay.remove()
-        
+       
         //Singleton
         if (instance) {
             return instance
