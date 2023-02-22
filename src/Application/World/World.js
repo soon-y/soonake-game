@@ -9,6 +9,7 @@ import Text from './Text'
 import Snake from "./Snake"
 import Clock from './Clock'
 import { param } from '../param'
+import { gsap } from 'gsap'
 import 'hammerjs'
 
 let audioApple, audioOver, camera
@@ -341,7 +342,7 @@ function isTouchDevice() {
 document.getElementById("startButton").onclick = function () {
     if (isTouchDevice() === true) {
         camera.controls.enabled = false
-        camera.instance.position.set(0, 14, 8)
+        gsap.to(camera.instance.position, { duration:1, x:0, y:14, z:8, ease: 'power2.inout'})
     }
 
     if (audioApple == null) setAudio()
@@ -352,15 +353,14 @@ document.getElementById("startButton").onclick = function () {
 
 function setAudio(){
     const audioLoader = new THREE.AudioLoader()
+    const listener = new THREE.AudioListener()
 
     audioLoader.load('./sound/gameOver.wav', function (buffer) {
-        const listener = new THREE.AudioListener()
         audioOver = new THREE.Audio(listener)
         audioOver.setBuffer(buffer)
     })
 
     audioLoader.load('./sound/appleBite.wav', function (buffer) {
-        const listener = new THREE.AudioListener()
         audioApple = new THREE.Audio(listener)
         audioApple.setBuffer(buffer)
     })
