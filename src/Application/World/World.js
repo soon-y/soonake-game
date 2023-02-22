@@ -25,7 +25,8 @@ export default class World {
     constructor() {
         this.application = new Application()
         this.scene = this.application.scene
-        this.audioLoader = new THREE.AudioLoader()
+        this.audioLoaderOver = new THREE.AudioLoader()
+        this.audioLoaderApple = new THREE.AudioLoader()
         this.resources = this.application.resources
         this.apple = new THREE.Group()
         this.body = new THREE.Group()
@@ -127,7 +128,7 @@ export default class World {
     }
 
     gameOver() {
-        this.audioLoader.load('./sound/gameOver.wav', function (buffer) {
+        this.audioLoaderOver.load('./sound/gameOver.wav', function (buffer) {
             audioOver.setBuffer(buffer)
             audioOver.play();
         });
@@ -158,7 +159,7 @@ export default class World {
             if (snake.children[0].position.x == this.apple.position.x &&
                 snake.children[0].position.z == this.apple.position.z) {
                 this.snakeLength++
-                this.audioLoader.load('./sound/appleBite.wav', function (buffer) {
+                this.audioLoaderApple.load('./sound/appleBite.wav', function (buffer) {
                     audioApple.setBuffer(buffer)
                     audioApple.play()
                 })
