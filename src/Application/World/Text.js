@@ -16,7 +16,7 @@ export default class Text {
 
         this.application = new Application()
         this.resources = this.application.resources
-        this.resource = this.resources.items.kenpizel
+        this.resource = this.resources.items.kenpixel
         this.font = new Font(this.resource)
         this.score = new THREE.Group()
         this.msg = new THREE.Group()

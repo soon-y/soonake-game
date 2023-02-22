@@ -75,7 +75,7 @@ export default [
         path: 'models/body2.glb'
     },
     {
-        name: 'kenpizel',
+        name: 'kenpixel',
         type: 'ttf',
         path: 'font/ttf/kenpixel.ttf'
     },
