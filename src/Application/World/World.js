@@ -353,15 +353,17 @@ document.getElementById("startButton").onclick = function () {
 
 function setAudio(){
     const audioLoader = new THREE.AudioLoader()
-    const listener = new THREE.AudioListener()
+    const listener1 = new THREE.AudioListener()
+    const listener2 = new THREE.AudioListener()
+    camera.add(listener1, listener2)
 
     audioLoader.load('./sound/gameOver.wav', function (buffer) {
-        audioOver = new THREE.Audio(listener)
+        audioOver = new THREE.Audio(listener1)
         audioOver.setBuffer(buffer)
     })
 
     audioLoader.load('./sound/appleBite.wav', function (buffer) {
-        audioApple = new THREE.Audio(listener)
+        audioApple = new THREE.Audio(listener2)
         audioApple.setBuffer(buffer)
     })
 }
