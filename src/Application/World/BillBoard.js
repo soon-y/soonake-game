@@ -71,7 +71,7 @@ export default class BillBoard {
                 map: this.resource
                 }))
         this.screen2.position.copy(this.screen.position)
-        this.screen.position.z +=0.001
+        this.screen.position.z +=0.005
         
         this.scene.add(this.box, this.cylinder1, this.cylinder2, this.score, this.screen, this.screen2)
     }
