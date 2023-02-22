@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Gajraj+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 * {
     margin: 0;
@@ -59,33 +59,33 @@ button {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.3);
-    border: 0;
-    border-radius: 30px;
+    background: transparent;
+    border: none;
     color: #ffffff;
-    padding: 10px 30px;
-    font-family: 'Gajraj One', cursive;
+    padding: 15px 18px;
+    font-family: 'Press Start 2P', cursive;
     font-size: 6vh;
     cursor: pointer;
-    -webkit-transition-duration: 1s;
+    -webkit-transition-duration: 0.5s;
     /* Safari */
-    transition-duration: 1s;
+    transition-duration: 0.5s;
 }
 
 button:hover {
     color: greenyellow;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 @media only screen and (max-width: 600px) {
     .loading-bar {
-        height: 20px;
+        height: 30px;
     }
     .loading-snake {
-        height: 14vh;
+        height: 140px;
     }
 
     button {
-        font-size: 20px;
+        font-size: 30px;
     }
 }
