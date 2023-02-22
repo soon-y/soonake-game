@@ -127,7 +127,6 @@ export default class World {
     }
 
     gameOver() {
-        ready = false
         this.audioLoader.load('./sound/gameOver.wav', function (buffer) {
             audio.setBuffer(buffer)
             audio.play();
