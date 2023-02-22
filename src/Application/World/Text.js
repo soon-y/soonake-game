@@ -31,6 +31,8 @@ export default class Text {
     getMsg(num){
         this.createText(num)
         this.msg.add(this.textMesh)
+        this.msg.rotation.x = -Math.PI / 2
+        this.msg.position.z = param.boardSize / 2 + param.size * 2
     }
 
     createText(num) {
