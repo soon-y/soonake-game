@@ -11,7 +11,7 @@ import Clock from './Clock'
 import { param } from '../param'
 import 'hammerjs'
 
-let audio, listener, camera
+let audioOver, audioApple, listenerOver, listenerApple, camera
 const direction = new THREE.Vector3(0, 0, 0)
 const snake = new THREE.Group()
 let rtCamera, msg
@@ -128,8 +128,8 @@ export default class World {
 
     gameOver() {
         this.audioLoader.load('./sound/gameOver.wav', function (buffer) {
-            audio.setBuffer(buffer)
-            audio.play();
+            audioOver.setBuffer(buffer)
+            audioOver.play();
         });
         alert("Game Over.\nSnake length: " + this.snakeLength);
         this.start();
@@ -159,8 +159,8 @@ export default class World {
                 snake.children[0].position.z == this.apple.position.z) {
                 this.snakeLength++
                 this.audioLoader.load('./sound/appleBite.wav', function (buffer) {
-                    audio.setBuffer(buffer)
-                    audio.play()
+                    audioApple.setBuffer(buffer)
+                    audioApple.play()
                 })
                 if (this.snakeLength < 10) {
                     this.text.refreshText("0" + this.snakeLength.toString())
@@ -343,8 +343,10 @@ function isTouchDevice() {
 }
 
 document.getElementById("startButton").onclick = function () {
-    listener = new THREE.AudioListener()
-    audio = new THREE.Audio(listener)
+    listenerApple = new THREE.AudioListener()
+    audioApple = new THREE.Audio(listenerApple)
+    listenerOver = new THREE.AudioListener()
+    audioOver = new THREE.Audio(listenerOver)
     if (isTouchDevice() === true) {
         camera.controls.enabled = false
         camera.instance.position.set(0, 14, 8)
