@@ -156,8 +156,10 @@ export default class World {
             if (snake.children[0].position.x == this.apple.position.x &&
                 snake.children[0].position.z == this.apple.position.z) {
                 this.snakeLength++
-                if(audioApple)
-                audioApple.play()
+                if(audioApple){
+                    console.log(audioApple)
+                    console.log(audioOver)
+                audioApple.play()}
 
                 if (this.snakeLength < 10) {
                     this.text.refreshText("0" + this.snakeLength.toString())
@@ -353,17 +355,18 @@ document.getElementById("startButton").onclick = function () {
 
 function setAudio(){
     const audioLoader = new THREE.AudioLoader()
-    const listener1 = new THREE.AudioListener()
-    const listener2 = new THREE.AudioListener()
-    camera.instance.add(listener1, listener2)
+    const listener = new THREE.AudioListener()
+    camera.instance.add(listener)
 
     audioLoader.load('./sound/gameOver.wav', function (buffer) {
-        audioOver = new THREE.Audio(listener1)
+        audioOver = new THREE.Audio(listener)
         audioOver.setBuffer(buffer)
+        audioOver.play()
     })
 
     audioLoader.load('./sound/appleBite.wav', function (buffer) {
-        audioApple = new THREE.Audio(listener2)
+        audioApple = new THREE.Audio(listener)
         audioApple.setBuffer(buffer)
+        audioApple.play()
     })
 }
