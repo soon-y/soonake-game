@@ -355,7 +355,7 @@ function setAudio(){
     const audioLoader = new THREE.AudioLoader()
     const listener1 = new THREE.AudioListener()
     const listener2 = new THREE.AudioListener()
-    camera.add(listener1, listener2)
+    camera.instance.add(listener1, listener2)
 
     audioLoader.load('./sound/gameOver.wav', function (buffer) {
         audioOver = new THREE.Audio(listener1)
