@@ -48,6 +48,7 @@ export default class World {
             this.clock = new Clock().instance
             this.playGiude()
             this.start()
+            this.application.debug.gui.show()
         })
     }
 
@@ -127,8 +128,9 @@ export default class World {
     }
 
     gameOver() {
-        if(audioOver)
-        audioOver.play()
+        if(audioOver){
+            audioOver.play()
+        }
         alert("Game Over.\nSnake length: " + this.snakeLength);
         this.start();
     }
