@@ -69,7 +69,7 @@ body {
     color: #ffffff;
     padding: 15px 18px;
     font-family: 'Press Start 2P', cursive;
-    font-size: 5vh;
+    font-size: 4.6vh;
     cursor: pointer;
     -webkit-transition-duration: 0.5s;
     /* Safari */
@@ -92,7 +92,5 @@ body {
 
     #start-button {
         font-size: 26px;
-        border-bottom: 2px solid white;
-        padding: 2px
     }
 }
