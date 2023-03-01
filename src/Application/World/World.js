@@ -227,7 +227,7 @@ export default class World {
     }
 
     gameOver() {
-        alert("Game Over.\nSnake length: " + this.snakeLength);
+        window.alert("Game Over.\nSnake length: " + this.snakeLength);
         this.start();
     }
 
