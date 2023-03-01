@@ -67,9 +67,10 @@ export default class World {
 
         btn.addEventListener("click", () => {
             if (isTouchDevice() === true) {
-                this.camera.controls.enabled = false
                 gsap.to(this.camera.instance.position, { duration: 1, x: 0, y: 14, z: 8, ease: 'power2.inout' })
-                this.camera.instance.lookAt(0, 0, 0)
+                this.camera.controls.target = new THREE.Vector3(0, 0, 0)
+                this.camera.controls.enableDamping = false
+                this.camera.controls.enabled = false
             }
             btn.style.display = 'none'
             this.setAudio()
@@ -226,7 +227,6 @@ export default class World {
     }
 
     gameOver() {
-        audioOver.play()
         alert("Game Over.\nSnake length: " + this.snakeLength);
         this.start();
     }
@@ -256,6 +256,7 @@ export default class World {
                 snake.children[0].position.x < -param.boardSize / 2 ||
                 snake.children[0].position.z > param.boardSize / 2 ||
                 snake.children[0].position.z < -param.boardSize / 2) {
+                audioOver.play()
                 this.gameOver()
             }
 
