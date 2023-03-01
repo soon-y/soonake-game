@@ -12,15 +12,17 @@ import { param } from '../param'
 import { gsap } from 'gsap'
 import 'hammerjs'
 
-let audioApple, audioOver, camera
+const canvas = document.querySelector('canvas.webgl')
+const btn = document.getElementById("start-button")
+const step = 1
+let audioApple, audioOver
 const direction = new THREE.Vector3(0, 0, 0)
 const snake = new THREE.Group()
 let rtCamera, msg
 let ready = false
 let rotation = false
 let ignore = false
-document.addEventListener("keydown", arrowKey)
-const canvas = document.querySelector('canvas.webgl')
+let hammertime = new Hammer(canvas);
 
 export default class World {
     constructor() {
@@ -30,7 +32,8 @@ export default class World {
         this.apple = new THREE.Group()
         this.body = new THREE.Group()
         rtCamera = this.application.rtCamera.instance
-        camera = this.application.camera
+        this.camera = this.application.camera
+        this.debug = this.application.debug
 
         // Wait for resources
         this.resources.on('ready', () => {
@@ -46,10 +49,106 @@ export default class World {
             this.body.add(this.snake.body1, this.snake.body2)
             this.billBoard = new BillBoard()
             this.clock = new Clock().instance
+            this.setAudio()
             this.playGiude()
+            this.debug.gui.show()
+            window.setInterval(() => {
+                for (let i = snake.children.length - 1; i > 0; i--) {
+                    if (snake.children[i].position.x == snake.children[i - 1].position.x) {
+                        snake.children[i].rotation.y = Math.PI / 2
+                    } else {
+                        snake.children[i].rotation.y = 0
+                    }
+                    snake.children[i].position.x = snake.children[i - 1].position.x
+                    snake.children[i].position.z = snake.children[i - 1].position.z
+                }
+                snake.children[0].position.add(direction.clone())
+            }, 250)
+            window.addEventListener("keydown", this.arrowKey)
             this.start()
-            this.application.debug.gui.show()
         })
+
+        btn.addEventListener("click", () => {
+            if (isTouchDevice() === true) {
+                this.camera.controls.enabled = false
+                gsap.to(this.camera.instance.position, { duration: 1, x: 0, y: 14, z: 8, ease: 'power2.inout' })
+                this.camera.instance.lookAt(0, 0, 0)
+            }
+            btn.style.display = 'none'
+            this.debug.gui.hide()
+            ready = true
+        })
+
+        //swipe gestures
+        hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+        hammertime.on('swipe', function (ev) {
+            if (msg.visible && ready && isTouchDevice())
+                msg.visible = false
+        })
+
+        hammertime.on('swipeleft', function () {
+            if (isTouchDevice() && !ignore && ready) {
+                goLeft()
+            }
+            setIgnore()
+        })
+        hammertime.on('swiperight', function () {
+            if (isTouchDevice() && !ignore && ready) {
+                goRight()
+            }
+            setIgnore()
+        })
+        hammertime.on('swipeup', function () {
+            if (isTouchDevice() && !ignore && ready) {
+                goUp()
+            }
+            setIgnore()
+        })
+        hammertime.on('swipedown', function () {
+            if (isTouchDevice() && !ignore && ready) {
+                goDown()
+            }
+            setIgnore()
+        })
+    }
+
+    arrowKey(event) {
+        event.preventDefault()
+        if (
+            event.key === "ArrowLeft" ||
+            event.key === "ArrowRight" ||
+            event.key === "ArrowUp" ||
+            event.key === "ArrowDown") {
+            msg.visible = false
+        }
+        if (event.key === "ArrowLeft") {
+            rotation = false
+            if (direction.x == step)
+                return
+            if (!ignore) goLeft()
+            setIgnore()
+        }
+        if (event.key === "ArrowRight") {
+            rotation = false
+            if (direction.x == -step)
+                return
+            if (!ignore) goRight()
+            setIgnore()
+        }
+        if (event.key === "ArrowUp") {
+            rotation = true
+            if (direction.z == step)
+                return
+            if (!ignore) goUp()
+            setIgnore()
+        }
+        if (event.key === "ArrowDown") {
+            rotation = true
+            if (direction.z == -step)
+                return
+            if (!ignore) goDown()
+            setIgnore()
+        }
     }
 
     playGiude() {
@@ -128,11 +227,26 @@ export default class World {
     }
 
     gameOver() {
-        if(audioOver){
-            audioOver.play()
-        }
+        audioOver.play()
         alert("Game Over.\nSnake length: " + this.snakeLength);
         this.start();
+    }
+
+    setAudio() {
+        const audioLoader = new THREE.AudioLoader()
+        const listener1 = new THREE.AudioListener()
+        const listener2 = new THREE.AudioListener()
+        this.camera.instance.add(listener1, listener2)
+
+        audioLoader.load('./sound/gameOver.wav', function (buffer) {
+            audioOver = new THREE.Audio(listener1)
+            audioOver.setBuffer(buffer)
+        })
+
+        audioLoader.load('./sound/appleBite.wav', function (buffer) {
+            audioApple = new THREE.Audio(listener2)
+            audioApple.setBuffer(buffer)
+        })
     }
 
     update() {
@@ -158,10 +272,7 @@ export default class World {
             if (snake.children[0].position.x == this.apple.position.x &&
                 snake.children[0].position.z == this.apple.position.z) {
                 this.snakeLength++
-                if(audioApple){
-                    console.log(audioApple)
-                    console.log(audioOver)
-                audioApple.play()}
+                audioApple.play()
 
                 if (this.snakeLength < 10) {
                     this.text.refreshText("0" + this.snakeLength.toString())
@@ -207,81 +318,6 @@ function setIgnore() {
     }, 200)
 }
 
-const step = 1
-function arrowKey(event) {
-    event.preventDefault()
-    if (ready) {
-        if (
-            event.key === "ArrowLeft" ||
-            event.key === "ArrowRight" ||
-            event.key === "ArrowUp" ||
-            event.key === "ArrowDown") {
-            msg.visible = false
-        }
-        if (event.key === "ArrowLeft") {
-            rotation = false
-            if (direction.x == step)
-                return
-            if (!ignore) goLeft()
-            setIgnore()
-        }
-        if (event.key === "ArrowRight") {
-            rotation = false
-            if (direction.x == -step)
-                return
-            if (!ignore) goRight()
-            setIgnore()
-        }
-        if (event.key === "ArrowUp") {
-            rotation = true
-            if (direction.z == step)
-                return
-            if (!ignore) goUp()
-            setIgnore()
-        }
-        if (event.key === "ArrowDown") {
-            rotation = true
-            if (direction.z == -step)
-                return
-            if (!ignore) goDown()
-            setIgnore()
-        }
-    }
-}
-
-//swipe gestures
-let hammertime = new Hammer(canvas);
-hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
-hammertime.on('swipe', function (ev) {
-    if (msg.visible && ready && isTouchDevice())
-        msg.visible = false
-})
-
-hammertime.on('swipeleft', function (ev) {
-    if (isTouchDevice() && !ignore && ready) {
-        goLeft()
-    }
-    setIgnore()
-})
-hammertime.on('swiperight', function (ev) {
-    if (isTouchDevice() && !ignore && ready) {
-        goRight()
-    }
-    setIgnore()
-})
-hammertime.on('swipeup', function (ev) {
-    if (isTouchDevice() && !ignore && ready) {
-        goUp()
-    }
-    setIgnore()
-})
-hammertime.on('swipedown', function (ev) {
-    if (isTouchDevice() && !ignore && ready) {
-        goDown()
-    }
-    setIgnore()
-})
-
 function goLeft() {
     snake.children[0].rotation.y = -Math.PI / 2
     direction.x = -step
@@ -322,53 +358,8 @@ function goDown() {
         snake.children[0].position.z + param.boardSize)
 }
 
-setInterval(() => {
-    if (ready) {
-        for (let i = snake.children.length - 1; i > 0; i--) {
-            if (snake.children[i].position.x == snake.children[i - 1].position.x) {
-                snake.children[i].rotation.y = Math.PI / 2
-            } else {
-                snake.children[i].rotation.y = 0
-            }
-            snake.children[i].position.x = snake.children[i - 1].position.x
-            snake.children[i].position.z = snake.children[i - 1].position.z
-        }
-        snake.children[0].position.add(direction.clone())
-    }
-}, 250)
-
 function isTouchDevice() {
     return ('ontouchstart' in window) ||
         (navigator.maxTouchPoints > 0) ||
         (navigator.msMaxTouchPoints > 0);
-}
-
-document.getElementById("startButton").onclick = function () {
-    if (isTouchDevice() === true) {
-        camera.controls.enabled = false
-        gsap.to(camera.instance.position, { duration:1, x:0, y:14, z:8, ease: 'power2.inout'})
-    }
-
-    if (audioApple == null) setAudio()
-
-    document.getElementById("startButton").style.display = 'none'
-    ready = true
-}
-
-function setAudio(){
-    const audioLoader = new THREE.AudioLoader()
-    const listener = new THREE.AudioListener()
-    camera.instance.add(listener)
-
-    audioLoader.load('./sound/gameOver.wav', function (buffer) {
-        audioOver = new THREE.Audio(listener)
-        audioOver.setBuffer(buffer)
-        audioOver.play()
-    })
-
-    audioLoader.load('./sound/appleBite.wav', function (buffer) {
-        audioApple = new THREE.Audio(listener)
-        audioApple.setBuffer(buffer)
-        audioApple.play()
-    })
 }
