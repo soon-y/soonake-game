@@ -8,7 +8,6 @@ import Apple from "./Apple"
 import Text from './Text'
 import Snake from "./Snake"
 import Clock from './Clock'
-import Debug from '../Utils/debug'
 import { param } from '../param'
 import { gsap } from 'gsap'
 import 'hammerjs'
@@ -34,16 +33,13 @@ export default class World {
         this.body = new THREE.Group()
         rtCamera = this.application.rtCamera.instance
         this.camera = this.application.camera
-        this.debug = this.application.debug
 
         // Wait for resources
         this.resources.on('ready', () => {
             // Setup
-            this.debug = new Debug()
-            this.debug.gui.hide()
             this.floor = new Floor()
-            this.environment = new Environment(this.debug)
-            this.playField = new PlayField(this.debug)
+            this.environment = new Environment()
+            this.playField = new PlayField()
             this.text = new Text()
             this.apple.add(new Apple().instance)
             this.snake = new Snake()
@@ -53,7 +49,6 @@ export default class World {
             this.billBoard = new BillBoard()
             this.clock = new Clock().instance
             this.playGiude()
-            this.debug.gui.show()
             window.setInterval(() => {
                 for (let i = snake.children.length - 1; i > 0; i--) {
                     if (snake.children[i].position.x == snake.children[i - 1].position.x) {
@@ -77,7 +72,6 @@ export default class World {
                 this.camera.instance.lookAt(0, 0, 0)
             }
             btn.style.display = 'none'
-            this.debug.gui.hide()
             this.setAudio()
             ready = true
         })

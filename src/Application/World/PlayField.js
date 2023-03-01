@@ -11,8 +11,6 @@ export default class PlayField {
         this.debug = debug
 
         //Debug
-        this.debugFolder = this.debug.gui.addFolder('Field')
-        this.debugFolder.close()
 
         this.setGeometry()
         this.setTextures()
@@ -45,11 +43,6 @@ export default class PlayField {
             roughness: 5,      
             side: THREE.DoubleSide
         })
-
-         // Debug
-         this.debugFolder
-         .add(this.material, 'roughness')
-         .min(0).max(10).step(0.001)
     }
 
     setMesh() {
