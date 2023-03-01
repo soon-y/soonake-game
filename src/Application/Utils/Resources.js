@@ -10,6 +10,7 @@ import EventEmitter from "./EventEmitter"
 const loadingBar = document.querySelector('.loading-bar')
 const snake = document.querySelector('.loading-snake')
 const btn = document.querySelector('.btn')
+const loadingPage = document.querySelector('.loading-page')
 
 export default class Resources extends EventEmitter {
     constructor(sources) {
@@ -35,6 +36,9 @@ export default class Resources extends EventEmitter {
                     btn.style.display = 'inline-block'
                     btn.style.opacity = '1'
                 }, 2000)
+                window.setTimeout(() => {
+                    loadingPage.style.display = 'none'
+                }, 3000)
             },
 
             //progress
