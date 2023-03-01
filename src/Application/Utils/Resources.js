@@ -38,7 +38,7 @@ export default class Resources extends EventEmitter {
                 }, 2000)
                 window.setTimeout(() => {
                     loadingPage.style.display = 'none'
-                }, 3000)
+                }, 3500)
             },
 
             //progress
