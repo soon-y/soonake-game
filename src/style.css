@@ -123,10 +123,46 @@ body {
     color: greenyellow;
 }
 
+.sound {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    margin: 10px;
+}
+
+.audio {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.fa-volume-high {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 30px;
+}
+
+.fa-volume-xmark {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 30px;
+    right: 3.8px;
+    opacity: 0;
+}
+
 @media only screen and (max-width: 600px) {
     .loading-bar {
         height: 30px;
     }
+
     .loading-snake {
         height: 140px;
     }

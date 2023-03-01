@@ -16,6 +16,9 @@ const canvas = document.querySelector('canvas.webgl')
 const btn = document.getElementById("start-button")
 const gameOver = document.querySelector('.game-over')
 const replay = document.querySelector('.replay')
+const audioOnOff = document.querySelector('.audio')
+const on = document.querySelector('i.fa-volume-high')
+const off = document.querySelector('i.fa-volume-xmark')
 const step = 1
 let audioApple, audioOver
 const direction = new THREE.Vector3(0, 0, 0)
@@ -67,6 +70,19 @@ export default class World {
             }, 250)
             window.addEventListener("keydown", this.arrowKey)
             this.start()
+            audioOnOff.addEventListener('click', () => {
+                if (audioOnOff.checked) {
+                    on.style.opacity = "0"
+                    off.style.opacity = "1"
+                    audioApple.setVolume(0)
+                    audioOver.setVolume(0)
+                } else {
+                    on.style.opacity = "1"
+                    off.style.opacity = "0"
+                    audioApple.setVolume(1)
+                    audioOver.setVolume(1)
+                }
+            })
         })
 
         btn.addEventListener("click", () => {
