@@ -62,7 +62,7 @@ export default class PlayField {
 
     setWall() {
         this.wall = this.resource.scene
-        this.wall.position.y = 0.1
+        this.wall.position.y = 0.01
         this.scene.add(this.wall)
 
         this.wall.traverse((child) => {
