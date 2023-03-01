@@ -6,4 +6,5 @@ export default class Debug
     {
         this.gui = new GUI()
     }
+    
 }   
