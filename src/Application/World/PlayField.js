@@ -3,12 +3,12 @@ import Application from "../Application"
 import { param } from '../param'
 
 export default class PlayField {
-    constructor() {
+    constructor(debug) {
         this.application = new Application()
         this.scene = this.application.scene
         this.resources = this.application.resources
         this.resource = this.resources.items.wall
-        this.debug = this.application.debug
+        this.debug = debug
 
         //Debug
         this.debugFolder = this.debug.gui.addFolder('Field')

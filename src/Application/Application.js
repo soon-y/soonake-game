@@ -8,7 +8,6 @@ import Resources from './Utils/Resources'
 import sources from './sources.js'
 import rtCamera from './rtCamera'
 import Loading from './Loading'
-import Debug from './Utils/debug'
 
 let instance = null
 
@@ -26,8 +25,6 @@ export default class Application {
         this.canvas = canvas
 
         //Setup
-        this.debug = new Debug()
-        this.debug.gui.hide()
         this.sizes = new Sizes()
         this.time = new Time()
         this.scene = new THREE.Scene()

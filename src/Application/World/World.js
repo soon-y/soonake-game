@@ -8,6 +8,7 @@ import Apple from "./Apple"
 import Text from './Text'
 import Snake from "./Snake"
 import Clock from './Clock'
+import Debug from '../Utils/debug'
 import { param } from '../param'
 import { gsap } from 'gsap'
 import 'hammerjs'
@@ -38,9 +39,11 @@ export default class World {
         // Wait for resources
         this.resources.on('ready', () => {
             // Setup
+            this.debug = new Debug()
+            this.debug.gui.hide()
             this.floor = new Floor()
-            this.environment = new Environment()
-            this.playField = new PlayField()
+            this.environment = new Environment(this.debug)
+            this.playField = new PlayField(this.debug)
             this.text = new Text()
             this.apple.add(new Apple().instance)
             this.snake = new Snake()
@@ -49,7 +52,6 @@ export default class World {
             this.body.add(this.snake.body1, this.snake.body2)
             this.billBoard = new BillBoard()
             this.clock = new Clock().instance
-            this.setAudio()
             this.playGiude()
             this.debug.gui.show()
             window.setInterval(() => {
@@ -76,6 +78,7 @@ export default class World {
             }
             btn.style.display = 'none'
             this.debug.gui.hide()
+            this.setAudio()
             ready = true
         })
 
@@ -114,40 +117,42 @@ export default class World {
 
     arrowKey(event) {
         event.preventDefault()
-        if (
-            event.key === "ArrowLeft" ||
-            event.key === "ArrowRight" ||
-            event.key === "ArrowUp" ||
-            event.key === "ArrowDown") {
-            msg.visible = false
-        }
-        if (event.key === "ArrowLeft") {
-            rotation = false
-            if (direction.x == step)
-                return
-            if (!ignore) goLeft()
-            setIgnore()
-        }
-        if (event.key === "ArrowRight") {
-            rotation = false
-            if (direction.x == -step)
-                return
-            if (!ignore) goRight()
-            setIgnore()
-        }
-        if (event.key === "ArrowUp") {
-            rotation = true
-            if (direction.z == step)
-                return
-            if (!ignore) goUp()
-            setIgnore()
-        }
-        if (event.key === "ArrowDown") {
-            rotation = true
-            if (direction.z == -step)
-                return
-            if (!ignore) goDown()
-            setIgnore()
+        if (ready) {
+            if (
+                event.key === "ArrowLeft" ||
+                event.key === "ArrowRight" ||
+                event.key === "ArrowUp" ||
+                event.key === "ArrowDown") {
+                msg.visible = false
+            }
+            if (event.key === "ArrowLeft") {
+                rotation = false
+                if (direction.x == step)
+                    return
+                if (!ignore) goLeft()
+                setIgnore()
+            }
+            if (event.key === "ArrowRight") {
+                rotation = false
+                if (direction.x == -step)
+                    return
+                if (!ignore) goRight()
+                setIgnore()
+            }
+            if (event.key === "ArrowUp") {
+                rotation = true
+                if (direction.z == step)
+                    return
+                if (!ignore) goUp()
+                setIgnore()
+            }
+            if (event.key === "ArrowDown") {
+                rotation = true
+                if (direction.z == -step)
+                    return
+                if (!ignore) goDown()
+                setIgnore()
+            }
         }
     }
 
