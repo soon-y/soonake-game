@@ -82,6 +82,47 @@ body {
     border: 1px solid rgba(0, 0, 0, 0);
 }
 
+.game-over {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    display: none;
+}
+
+.game-over .label {
+    position: absolute;
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Press Start 2P', cursive;
+    color: #ffffff;
+    letter-spacing: 10px;
+    font-size: 4vh;
+}
+
+.game-over .replay {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 6vh;
+    cursor: pointer;
+    -webkit-transition-duration: 0.5s;
+    /* Safari */
+    transition-duration: 0.5s;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.game-over .replay:hover {
+    color: greenyellow;
+}
+
 @media only screen and (max-width: 600px) {
     .loading-bar {
         height: 30px;
@@ -93,4 +134,9 @@ body {
     #start-button {
         font-size: 26px;
     }
+
+    .game-over .label {
+        font-size: 26px;
+    }
+
 }

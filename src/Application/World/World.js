@@ -14,6 +14,8 @@ import 'hammerjs'
 
 const canvas = document.querySelector('canvas.webgl')
 const btn = document.getElementById("start-button")
+const gameOver = document.querySelector('.game-over')
+const replay = document.querySelector('.replay')
 const step = 1
 let audioApple, audioOver
 const direction = new THREE.Vector3(0, 0, 0)
@@ -50,16 +52,18 @@ export default class World {
             this.clock = new Clock().instance
             this.playGiude()
             window.setInterval(() => {
-                for (let i = snake.children.length - 1; i > 0; i--) {
-                    if (snake.children[i].position.x == snake.children[i - 1].position.x) {
-                        snake.children[i].rotation.y = Math.PI / 2
-                    } else {
-                        snake.children[i].rotation.y = 0
+                if (ready) {
+                    for (let i = snake.children.length - 1; i > 0; i--) {
+                        if (snake.children[i].position.x == snake.children[i - 1].position.x) {
+                            snake.children[i].rotation.y = Math.PI / 2
+                        } else {
+                            snake.children[i].rotation.y = 0
+                        }
+                        snake.children[i].position.x = snake.children[i - 1].position.x
+                        snake.children[i].position.z = snake.children[i - 1].position.z
                     }
-                    snake.children[i].position.x = snake.children[i - 1].position.x
-                    snake.children[i].position.z = snake.children[i - 1].position.z
+                    snake.children[0].position.add(direction.clone())
                 }
-                snake.children[0].position.add(direction.clone())
             }, 250)
             window.addEventListener("keydown", this.arrowKey)
             this.start()
@@ -107,6 +111,12 @@ export default class World {
                 goDown()
             }
             setIgnore()
+        })
+
+        replay.addEventListener("click", () => {
+            gameOver.style.display = "none"
+            ready = true
+            this.start()
         })
     }
 
@@ -227,23 +237,23 @@ export default class World {
     }
 
     gameOver() {
-        //window.alert("Game Over.\nSnake length: " + this.snakeLength);
-        this.start();
+        audioOver.play()
+        gameOver.style.display = "block"
+        ready = false
     }
 
     setAudio() {
         const audioLoader = new THREE.AudioLoader()
-        const listener1 = new THREE.AudioListener()
-        const listener2 = new THREE.AudioListener()
-        this.camera.instance.add(listener1, listener2)
+        const listener = new THREE.AudioListener()
+        this.camera.instance.add(listener)
 
         audioLoader.load('./sound/gameOver.wav', function (buffer) {
-            audioOver = new THREE.Audio(listener1)
+            audioOver = new THREE.Audio(listener)
             audioOver.setBuffer(buffer)
         })
 
         audioLoader.load('./sound/appleBite.wav', function (buffer) {
-            audioApple = new THREE.Audio(listener2)
+            audioApple = new THREE.Audio(listener)
             audioApple.setBuffer(buffer)
         })
     }
@@ -256,7 +266,6 @@ export default class World {
                 snake.children[0].position.x < -param.boardSize / 2 ||
                 snake.children[0].position.z > param.boardSize / 2 ||
                 snake.children[0].position.z < -param.boardSize / 2) {
-                audioOver.play()
                 this.gameOver()
             }
 
