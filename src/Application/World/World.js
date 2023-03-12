@@ -88,7 +88,7 @@ export default class World {
         btn.addEventListener("click", () => {
             if (isTouchDevice() === true) {
                 gsap.to(this.camera.instance.position, { duration: 1, x: 0, y: 14, z: 8, ease: 'power2.inout' })
-                this.camera.controls.target = new THREE.Vector3(0, 0, 0)
+                gsap.to(this.camera.controls.target, { duration: 1, x: 0, y: 0, z: 0, ease: 'power2.inout' })
                 this.camera.controls.enableDamping = false
                 this.camera.controls.enabled = false
             }
