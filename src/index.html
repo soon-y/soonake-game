@@ -1,35 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Snake Game 🐍</title>
-    <link rel="icon" type="image/x-icon" href="html/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="html/appIcon.png">
-    <script src="https://kit.fontawesome.com/5ae8715ba3.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./style.css">
-</head>
+    <link rel="icon" type="image/x-icon" href="html/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="html/appIcon.png" />
+    <script
+      src="https://kit.fontawesome.com/5ae8715ba3.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
 
-<body>
+  <body>
     <canvas class="webgl"></canvas>
     <div class="sound">
-        <input class="audio" type="checkbox">
-        <i class="fa-solid fa-volume-high"></i>
-        <i class="fa-solid fa-volume-xmark"></i>
+      <input class="audio" type="checkbox" />
+      <i class="fa-solid fa-volume-high"></i>
+      <i class="fa-solid fa-volume-xmark"></i>
     </div>
-    <button id="start-button" class="btn">START</button>
+    <div class="play">
+      <button class="fa-solid fa-play fa-beat"></button>
+      <button class="fa-solid fa-rotate-right fa-beat"></button>
+    </div>
+    <div class="season">
+      <button id="spring" class="btn">🐰</button>
+      <button id="summer" class="btn">🍉</button>
+      <button id="fall" class="btn">🎃</button>
+      <button id="winter" class="btn">🎄</button>
+    </div>
     <div class="loading-page">
-        <div class="loading-bar"></div>
-        <img class="loading-snake" src="html/snakeTop.png" alt="Snake vector image">
-    </div>
-    <div class="game-over">
-        <div class="label">GAMEOVER</div>
-        <button class="replay">
-            <i class="fa-solid fa-rotate-right"></i>
-        </button>
+      <div class="loading-bar"></div>
+      <img
+        class="loading-snake"
+        src="html/snake.png"
+        alt="Snake vector image"
+      />
     </div>
     <script type="module" src="./script.js"></script>
-</body>
-
+  </body>
 </html>

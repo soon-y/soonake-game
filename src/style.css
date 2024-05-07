@@ -1,178 +1,170 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 
 * {
-    margin: 0;
-    padding: 0
+  margin: 0;
+  padding: 0;
 }
 
 .html,
 body {
-    overflow: hidden;
-    background-color: black;
+  overflow: hidden;
+  background-color: black;
 }
 
 .webgl {
-    position: absolute;
-    left: 0px;
-    top: 0px;
-}
-
-.loading-page {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
+  position: absolute;
+  left: 0px;
+  top: 0px;
 }
 
 .loading-bar {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    width: 98%;
-    height: 5vh;
-    background: linear-gradient(to right, rgb(255, 0, 0), rgb(201, 20, 0));
-    clip-path: polygon(100% 0%, 100% 50%, 100% 100%, 0 100%, 5% 50%, 0 0);
-    transform: translate(100%, -50%);
-    transition: transfrom 0.5s;
-    will-change: transform;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 94%;
+  height: 10px;
+  background: linear-gradient(to right, rgb(255, 0, 0), rgb(201, 20, 0));
+  transform: translate(100%, -50%);
+  transition: transfrom 0.5s;
+  will-change: transform;
 }
 
 .loading-bar.ended {
-    transform-origin: 100%;
-    transition: transform 1s ease-in;
+  transform-origin: 100%;
+  transition: transform 1s ease-in;
 }
 
 .loading-snake {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: auto;
-    height: 30vh;
-    will-change: transform;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: auto;
+  height: 30vh;
+  will-change: transform;
 }
 
 .loading-snake.ended {
-    transform-origin: 100%;
-    transition: transform 1.5s ease-in;
-}
-
-#start-button {
-    display: none;
-    opacity: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: transparent;
-    border: none;
-    color: #ffffff;
-    padding: 15px 18px;
-    font-family: 'Press Start 2P', cursive;
-    font-size: 4.6vh;
-    cursor: pointer;
-    -webkit-transition-duration: 0.5s;
-    /* Safari */
-    transition-duration: 0.5s;
-}
-
-#start-button:hover {
-    color: greenyellow;
-    background-color: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(0, 0, 0, 0);
-}
-
-.game-over {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
-    display: none;
-}
-
-.game-over .label {
-    position: absolute;
-    top: 48%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'Press Start 2P', cursive;
-    color: #ffffff;
-    letter-spacing: 10px;
-    font-size: 4vh;
-}
-
-.game-over .replay {
-    position: absolute;
-    top: 55%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: transparent;
-    border: none;
-    color: #ffffff;
-    font-size: 6vh;
-    cursor: pointer;
-    -webkit-transition-duration: 0.5s;
-    /* Safari */
-    transition-duration: 0.5s;
-    font-family: 'Press Start 2P', cursive;
-}
-
-.game-over .replay:hover {
-    color: greenyellow;
+  transform-origin: 100%;
+  transition: transform 1s ease-in;
 }
 
 .sound {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 40px;
-    height: 40px;
-    overflow: hidden;
-    margin: 10px;
+  position: absolute;
+  right: 0;
+  top: 10px;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  margin: 10px;
 }
 
 .audio {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    z-index: 10;
-    opacity: 0;
-    cursor: pointer;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  opacity: 0;
+  cursor: pointer;
 }
 
 .fa-volume-high {
-    position: absolute;
-    right: 0;
-    top: 0;
-    font-size: 30px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 30px;
 }
 
 .fa-volume-xmark {
-    position: absolute;
-    right: 0;
-    top: 0;
-    font-size: 30px;
-    right: 3.8px;
-    opacity: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 30px;
+  right: 3.8px;
+  opacity: 0;
 }
 
-@media only screen and (max-width: 600px) {
-    .loading-bar {
-        height: 30px;
-    }
+.play {
+  position: absolute;
+  right: 0;
+  top: 60px;
+  width: 40px;
+  height: 40px;
+  margin: 10px;
+}
 
-    .loading-snake {
-        height: 140px;
-    }
+.fa-play {
+  position: absolute;
+  left: 2px;
+  top: 0;
+  font-size: 34px;
+  border: none;
+  background-color: #ffffff00;
+}
 
-    #start-button {
-        font-size: 26px;
-    }
+.fa-rotate-right {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 34px;
+  border: none;
+  display: none;
+  background-color: #ffffff00;
+}
 
-    .game-over .label {
-        font-size: 26px;
-    }
+.fa-play:hover {
+  cursor: pointer;
+}
 
+.fa-rotate-right:hover {
+  cursor: pointer;
+}
+
+.season {
+  position: absolute;
+  right: 0;
+  bottom: 0px;
+  width: 70px;
+  height: auto;
+  overflow: hidden;
+  margin: 10px;
+}
+
+.season button {
+  position: relative;
+  border-radius: 10px;
+  border: solid #ffffff00;
+  font-size: 40px;
+  padding: 0 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 6px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  background-color: #ffffffbb;
+}
+
+.season button:hover {
+  filter: opacity(100%);
+  background-color: #ffffff;
+  transition-duration: 0.4s;
+}
+
+.btn {
+  opacity: 0;
+}
+
+@media only screen and (max-width: 1000px) {
+  .loading-snake {
+    height: 140px;
+  }
+
+  .season {
+    width: 60px;
+  }
+
+  .season button {
+    font-size: 30px;
+  }
 }
