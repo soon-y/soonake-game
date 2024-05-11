@@ -24,13 +24,13 @@ export default class BillBoard {
       })
     );
 
-    this.distance = param.boardSize / 2 + 0.66;
-    this.yPos = param.boardSize / 3
-    this.xPos = param.boardSize / 2 * 0.78
+    this.distance = param.boardSize / 2 + 0.65;
+    this.yPos = param.boardSize / 3;
+    this.xPos = (param.boardSize / 2) * 0.78;
 
     this.score.msg.position.z = -this.distance - 0.2;
     this.screen.position.z = -this.distance;
-    this.clock.position.z = - this.distance;
+    this.clock.position.z = -this.distance;
 
     this.screen.position.x = -param.boardSize / 10;
     this.score.msg.position.x = this.xPos;
