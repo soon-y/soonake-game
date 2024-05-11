@@ -129,13 +129,13 @@ body {
   position: relative;
   border: none;
   font-size: 40px;
-  padding: 4px 16px;
+  padding: 4px;
   text-decoration: none;
   display: inline-block;
   margin: 1px;
   cursor: pointer;
   transition-duration: 0.4s;
-  background-color: #6c9b7100;
+  background-color: #ffffff00;
   filter: opacity(50%);
 }
 
