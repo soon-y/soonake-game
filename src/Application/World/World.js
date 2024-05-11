@@ -16,7 +16,7 @@ import "hammerjs";
 
 const canvas = document.querySelector("canvas.webgl");
 const hammertime = new Hammer(canvas);
-const nodeList = document.getElementsByTagName("button")
+const nodeList = document.getElementsByTagName("button");
 const startbtn = document.querySelector("button.fa-play");
 const replay = document.querySelector("button.fa-rotate-right");
 const audioOnOff = document.querySelector(".audio");
@@ -32,7 +32,6 @@ const snake = new THREE.Group();
 let msg;
 let ready = false;
 let ignore = false;
-
 
 export default class World {
   constructor() {
@@ -80,11 +79,10 @@ export default class World {
         msg,
         snake
       );
-   
+
       this.snake.blink();
       this.snake.flick();
       this.start();
-      this.setAudio();
     });
 
     window.addEventListener("keydown", this.arrowKey);
@@ -104,7 +102,7 @@ export default class World {
           snake.children[i].position.z = snake.children[i - 1].position.z;
         }
 
-        // move snakehead 
+        // move snakehead
         snake.children[0].position.add(direction.clone());
 
         // add last position for adding snake body
@@ -126,6 +124,7 @@ export default class World {
       if (audioOnOff.checked) {
         on.style.opacity = "0";
         off.style.opacity = "1";
+        if (!this.audioSet) this.setAudio();
         this.audioGulp.setVolume(0);
         this.audioBite.setVolume(0);
         this.audioOver.setVolume(0);
@@ -139,6 +138,7 @@ export default class World {
     });
 
     startbtn.addEventListener("click", () => {
+      if (!this.audioSet) this.setAudio();
       this.clickStart();
       ready = true;
     });
@@ -328,11 +328,14 @@ export default class World {
   }
 
   placeFood() {
-    let foodPosX = 
-    Math.floor(param.boardSize * Math.random()) -
-    param.boardSize / 2 + param.size / 2;
-    let foodPosZ = Math.floor(param.boardSize * Math.random()) -
-    param.boardSize / 2 + param.size / 2;
+    let foodPosX =
+      Math.floor(param.boardSize * Math.random()) -
+      param.boardSize / 2 +
+      param.size / 2;
+    let foodPosZ =
+      Math.floor(param.boardSize * Math.random()) -
+      param.boardSize / 2 +
+      param.size / 2;
 
     // place an food randomly where there is no snake
     while (this.samePositionAsSnake(foodPosX, foodPosZ)) {
@@ -382,9 +385,10 @@ export default class World {
   }
 
   setAudio() {
+    this.audioSet = true;
     const listener = new THREE.AudioListener();
     this.camera.instance.add(listener);
-  
+
     this.audioGameOver = this.resources.items.gameover;
     this.audioFoodBite = this.resources.items.bite;
     this.audioTeaGulp = this.resources.items.gulp;
@@ -396,6 +400,8 @@ export default class World {
     this.audioOver.setBuffer(this.audioGameOver);
     this.audioBite.setBuffer(this.audioFoodBite);
     this.audioGulp.setBuffer(this.audioTeaGulp);
+
+    console.log("audio set");
   }
 
   samePositionAsSnake(x, z) {
@@ -409,7 +415,7 @@ export default class World {
     }
     return false;
   }
-  
+
   update() {
     if (ready) {
       // when the snake hit the boundaries
