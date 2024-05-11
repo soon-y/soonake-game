@@ -278,7 +278,7 @@ export default class World {
 
   setBtnFilter() {
     for (let i = 2; i < nodeList.length; i++)
-      nodeList[i].style.filter = "opacity(30%)";
+      nodeList[i].style.filter = "opacity(50%)";
   }
 
   arrowKey(event) {
