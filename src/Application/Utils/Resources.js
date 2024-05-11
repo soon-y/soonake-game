@@ -42,12 +42,21 @@ export default class Resources extends EventEmitter {
           btn[i].style.transitionDuration = "3s";
         }
 
-        window.setTimeout(() => {
-          loadingPage.style.display = "none";
-          for (let i = 0; i < btn.length; i++) {
-            btn[i].style.transitionDuration = "0s";
-          }
-        }, 2000);
+        if (isTouchDevice() === true) {
+          window.setTimeout(() => {
+            loadingPage.style.display = "none";
+            for (let i = 0; i < btn.length; i++) {
+              btn[i].style.transitionDuration = "0s";
+            }
+          }, 3000);
+        } else {
+          window.setTimeout(() => {
+            loadingPage.style.display = "none";
+            for (let i = 0; i < btn.length; i++) {
+              btn[i].style.transitionDuration = "0s";
+            }
+          }, 5000);
+        }
       },
 
       //progress
@@ -114,4 +123,12 @@ export default class Resources extends EventEmitter {
       this.trigger("ready");
     }
   }
+}
+
+function isTouchDevice() {
+  return (
+    "ontouchstart" in window ||
+    navigator.maxTouchPoints > 0 ||
+    navigator.msMaxTouchPoints > 0
+  );
 }
