@@ -141,16 +141,13 @@ export default class World {
     });
 
     folder.addEventListener("click", () => {
-      console.log("folder lciekd");
       if (folder.checked) {
-        console.log("close");
         folderOpen.style.display = "none";
         folderClose.style.display = "inline-block";
         for (let i = 2; i < nodeList.length; i++) {
           nodeList[i].style.display = "none";
         }
       } else {
-        console.log("open");
         folderOpen.style.display = "inline-block";
         folderClose.style.display = "none";
         for (let i = 2; i < nodeList.length; i++) {
@@ -320,10 +317,6 @@ export default class World {
     this.camera.controls.enableDamping = false;
     this.camera.controls.enabled = false;
 
-    for (let i = 0; i < nodeList.length; i++) {
-      nodeList[i].style.display = "none";
-    }
-
     if (isTouchDevice() === true) {
       this.text.refreshText("Swipe!");
     } else {
@@ -418,10 +411,8 @@ export default class World {
     this.camera.controls.enableDamping = true;
     this.camera.controls.enabled = true;
     this.audio.over.play();
-    for (let i = 0; i < nodeList.length; i++) {
-      nodeList[i].style.display = "inline-block";
-    }
     startbtn.style.display = "none";
+    replay.style.display = "inline-block";
     msg.visible = true;
     this.text.refreshText("Try again");
     ready = false;
