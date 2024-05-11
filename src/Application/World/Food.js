@@ -5,7 +5,6 @@ export default class Food {
   constructor() {
     this.application = new Application();
     this.resources = this.application.resources;
-    this.scene = this.application.scene;
     this.egg = this.resources.items.easterEgg;
     this.watermelon = this.resources.items.watermelon;
     this.jack = this.resources.items.jackOlantern;

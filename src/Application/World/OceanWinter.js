@@ -5,7 +5,6 @@ import { Water } from "three/examples/jsm/objects/Water2.js";
 export default class OceanWinter {
   constructor() {
     this.application = new Application();
-    this.scene = this.application.scene;
     this.resources = this.application.resources;
 
     this.setGeometry();

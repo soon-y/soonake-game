@@ -5,7 +5,6 @@ export default class Field {
   constructor() {
     this.application = new Application();
     this.resources = this.application.resources;
-    this.scene = this.application.scene;
     this.fieldBase = this.resources.items.fieldBase;
     this.fieldSpring = this.resources.items.fieldSpring;
     this.fieldSummer = this.resources.items.fieldSummer;
