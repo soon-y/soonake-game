@@ -20,6 +20,7 @@ export default class Resources extends EventEmitter {
     this.sources = sources;
 
     //Setup
+    this.barWidth = 94;
     this.loading = new Loading();
     this.loadingManager = new THREE.LoadingManager(
       //Loaded
@@ -30,35 +31,29 @@ export default class Resources extends EventEmitter {
             value: 0,
           });
           loadingBar.classList.add("ended");
-          loadingBar.style.transform = `translate(100%, -50%)`;
           snake.classList.add("ended");
+          loadingBar.style.transform = `translate(100%, -50%)`;
           snake.style.transform = `translate(100%, -50%)`;
         }, 1000);
 
-        window.setTimeout(() => {
-          for (let i = 0; i < btn.length; i++) {
-            btn[i].style.display = "inline-block";
-            btn[i].style.opacity = "1";
-            btn[i].style.transitionDuration = "2s";
-          }
-        }, 2000);
+        for (let i = 0; i < btn.length; i++) {
+          btn[i].style.display = "inline-block";
+          btn[i].style.opacity = "1";
+          btn[i].style.transitionDuration = "3s";
+        }
 
         window.setTimeout(() => {
           loadingPage.style.display = "none";
-          for (let i = 0; i < btn.length; i++) {
-            btn[i].style.display = "inline-block";
-            btn[i].style.opacity = "1";
-            btn[i].style.transitionDuration = "0s";
-          }
-        }, 5000);
+          btn[0].style.transitionDuration = "0s";
+        }, 4000);
       },
 
       //progress
       (itemUrl, itemsLoaded, itemsTotal) => {
         loadingBar.style.display = "block";
         this.loading.overlay.visible = true;
-        const progress = 100 - (itemsLoaded / itemsTotal) * 100;
-        loadingBar.style.transform = `translate(${progress}%, -50%)`;
+        const progress = (itemsLoaded / itemsTotal) * this.barWidth;
+        loadingBar.style.width = `${progress}` + "%";
       }
     );
 
