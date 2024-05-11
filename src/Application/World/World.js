@@ -27,6 +27,9 @@ const springBtn = document.getElementById("spring");
 const summerBtn = document.getElementById("summer");
 const fallBtn = document.getElementById("fall");
 const winterBtn = document.getElementById("winter");
+const folder = document.querySelector(".folder");
+const folderOpen = document.querySelector("i.fa-folder-open");
+const folderClose = document.querySelector("i.fa-folder");
 const step = param.size;
 const direction = new THREE.Vector3(0, 0, 0);
 const snake = new THREE.Group();
@@ -137,6 +140,25 @@ export default class World {
       }
     });
 
+    folder.addEventListener("click", () => {
+      console.log("folder lciekd");
+      if (folder.checked) {
+        console.log("close");
+        folderOpen.style.display = "none";
+        folderClose.style.display = "inline-block";
+        for (let i = 2; i < nodeList.length; i++) {
+          nodeList[i].style.display = "none";
+        }
+      } else {
+        console.log("open");
+        folderOpen.style.display = "inline-block";
+        folderClose.style.display = "none";
+        for (let i = 2; i < nodeList.length; i++) {
+          nodeList[i].style.display = "inline-block";
+        }
+      }
+    });
+
     startbtn.addEventListener("click", () => {
       if (!this.audioSet) this.setAudio();
       this.clickStart();
@@ -169,6 +191,8 @@ export default class World {
         this.snake.season.add(this.snake.spring);
         this.boundary.remove(this.boundary.children[0]);
         this.boundary.add(this.fence.spring);
+        this.setBtnFilter();
+        springBtn.style.filter = "opacity(100%)";
       }
     });
 
@@ -184,6 +208,8 @@ export default class World {
         this.boundary.add(this.wall.summer);
         this.scene.remove(this.oceanWinter.mesh);
         this.scene.add(this.oceanSummer.mesh);
+        this.setBtnFilter();
+        summerBtn.style.filter = "opacity(100%)";
       }
     });
 
@@ -197,6 +223,8 @@ export default class World {
         this.snake.season.add(this.snake.fall);
         this.boundary.remove(this.boundary.children[0]);
         this.boundary.add(this.fence.fall);
+        this.setBtnFilter();
+        fallBtn.style.filter = "opacity(100%)";
       }
     });
 
@@ -212,6 +240,8 @@ export default class World {
         this.boundary.add(this.wall.winter);
         this.scene.remove(this.oceanSummer.mesh);
         this.scene.add(this.oceanWinter.mesh);
+        this.setBtnFilter();
+        winterBtn.style.filter = "opacity(100%)";
       }
     });
 
@@ -245,6 +275,11 @@ export default class World {
       }
       setIgnore();
     });
+  }
+
+  setBtnFilter() {
+    for (let i = 2; i < nodeList.length; i++)
+      nodeList[i].style.filter = "opacity(30%)";
   }
 
   arrowKey(event) {
