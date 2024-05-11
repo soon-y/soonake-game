@@ -43,7 +43,7 @@ export default class Resources extends EventEmitter {
         }
 
         window.setTimeout(() => {
-          loadingPage.style.display = "none";
+          //loadingPage.style.display = "none";
           for (let i = 0; i < btn.length; i++) {
             btn[i].style.transitionDuration = "0s";
           }
