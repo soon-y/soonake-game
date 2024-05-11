@@ -33,17 +33,24 @@ export default class Resources extends EventEmitter {
           loadingBar.style.transform = `translate(100%, -50%)`;
           snake.classList.add("ended");
           snake.style.transform = `translate(100%, -50%)`;
-          for (let i = 0; i < btn.length; i++) {
-            btn[i].style.display = "inline-block";
-          }
         }, 1000);
+
         window.setTimeout(() => {
           for (let i = 0; i < btn.length; i++) {
             btn[i].style.display = "inline-block";
             btn[i].style.opacity = "1";
-            btn[i].style.transitionDuration = "3s";
+            btn[i].style.transitionDuration = "2s";
           }
         }, 2000);
+
+        window.setTimeout(() => {
+          loadingPage.style.display = "none";
+          for (let i = 0; i < btn.length; i++) {
+            btn[i].style.display = "inline-block";
+            btn[i].style.opacity = "1";
+            btn[i].style.transitionDuration = "0s";
+          }
+        }, 5000);
       },
 
       //progress
