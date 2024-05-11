@@ -55,7 +55,7 @@ export default class Resources extends EventEmitter {
             for (let i = 0; i < btn.length; i++) {
               btn[i].style.transitionDuration = "0s";
             }
-          }, 5000);
+          }, 10000);
         }
       },
 
