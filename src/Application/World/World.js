@@ -160,6 +160,7 @@ export default class World {
       if (!this.audioSet) this.setAudio();
       this.clickStart();
       ready = true;
+      startbtn.style.display = "none";
     });
 
     replay.addEventListener("click", () => {
@@ -173,6 +174,7 @@ export default class World {
         this.fence.revert();
         this.wall.revert();
       }
+      replay.style.display = "none";
       this.clickStart();
       this.start();
     });
@@ -411,7 +413,6 @@ export default class World {
     this.camera.controls.enableDamping = true;
     this.camera.controls.enabled = true;
     this.audio.over.play();
-    startbtn.style.display = "none";
     replay.style.display = "inline-block";
     msg.visible = true;
     this.text.refreshText("Try again");
