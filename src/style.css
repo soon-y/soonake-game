@@ -52,7 +52,7 @@ body {
   width: 40px;
   height: 40px;
   overflow: hidden;
-  margin: 10px;
+  margin: 20px;
 }
 
 .audio {
@@ -95,7 +95,7 @@ body {
   top: 70px;
   width: 40px;
   height: 40px;
-  margin: 10px;
+  margin: 20px;
 }
 
 .fa-play {
@@ -120,7 +120,7 @@ body {
   overflow: hidden;
   margin: 10px;
   padding: 10px 0;
-  background-color: rgba(255, 255, 255, 0.443);
+  background-color: rgba(255, 255, 255, 0.707);
   border-radius: 40px;
   text-align: center;
 }
@@ -129,14 +129,14 @@ body {
   position: relative;
   border: none;
   font-size: 40px;
-  padding: 4px;
+  padding: 4px 16px;
   text-decoration: none;
   display: inline-block;
   margin: 1px;
   cursor: pointer;
   transition-duration: 0.4s;
   background-color: #6c9b7100;
-  filter: opacity(30%);
+  filter: opacity(50%);
 }
 
 #spring {
@@ -145,17 +145,17 @@ body {
 
 .season_folder {
   position: relative;
-  background-color: rgba(142, 83, 83, 0);
+  background-color: rgba(255, 255, 255, 0);
   padding: 14px;
 }
 
 .folder {
   position: absolute;
-  bottom: 5px;
-  right: 15px;
+  bottom: 4px;
+  right: 24px;
   opacity: 0;
   z-index: 10;
-  width: 40px;
+  width: 34px;
   height: 100%;
 }
 
