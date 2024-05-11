@@ -6,6 +6,7 @@ import Renderer from "./Renderer";
 import World from "./World/World";
 import Resources from "./Utils/Resources";
 import sources from "./sources.js";
+import rtCamera from "./rtCamera";
 import Loading from "./Loading";
 
 let instance = null;
@@ -27,6 +28,7 @@ export default class Application {
     this.time = new Time();
     this.scene = new THREE.Scene();
     this.camera = new Camera();
+    this.rtCamera = new rtCamera();
     this.renderder = new Renderer();
     this.loading = new Loading();
     this.resources = new Resources(sources);
