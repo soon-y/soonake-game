@@ -151,20 +151,4 @@ export default [
     type: "texture",
     path: "textures/waterMap/waternormals.jpg",
   },
-  {
-    name: "gameover",
-    type: "audio",
-    path: "sound/gameOver.wav",
-  },
-
-  {
-    name: "bite",
-    type: "audio",
-    path: "sound/appleBite.wav",
-  },
-  {
-    name: "gulp",
-    type: "audio",
-    path: "sound/gulp.mp3",
-  },
 ];

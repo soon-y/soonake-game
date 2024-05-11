@@ -11,6 +11,7 @@ import Snake from "./Snake";
 import Fence from "./Fence";
 import Wall from "./Wall";
 import Queue from "../Queue";
+import Audio from "../Utils/Audio";
 import { param } from "../param";
 import "hammerjs";
 
@@ -124,16 +125,15 @@ export default class World {
       if (audioOnOff.checked) {
         on.style.opacity = "0";
         off.style.opacity = "1";
-        if (!this.audioSet) this.setAudio();
-        this.audioGulp.setVolume(0);
-        this.audioBite.setVolume(0);
-        this.audioOver.setVolume(0);
+        if (!this.audioSet) {
+          this.setAudio(true);
+        } else {
+          this.audio.mute();
+        }
       } else {
         on.style.opacity = "1";
         off.style.opacity = "0";
-        this.audioGulp.setVolume(1);
-        this.audioBite.setVolume(1);
-        this.audioOver.setVolume(1);
+        this.audio.soundOn();
       }
     });
 
@@ -144,8 +144,16 @@ export default class World {
     });
 
     replay.addEventListener("click", () => {
-      this.fence.revert();
-      this.wall.revert();
+      if (
+        // snake head hit the boundaries
+        this.snake.head.position.x > param.boardSize / 2 ||
+        this.snake.head.position.x < -param.boardSize / 2 ||
+        this.snake.head.position.z > param.boardSize / 2 ||
+        this.snake.head.position.z < -param.boardSize / 2
+      ) {
+        this.fence.revert();
+        this.wall.revert();
+      }
       this.clickStart();
       this.start();
     });
@@ -374,7 +382,7 @@ export default class World {
     this.wall.gameOver(this.snake.head.position.x, this.snake.head.position.z);
     this.camera.controls.enableDamping = true;
     this.camera.controls.enabled = true;
-    this.audioOver.play();
+    this.audio.over.play();
     for (let i = 0; i < nodeList.length; i++) {
       nodeList[i].style.display = "inline-block";
     }
@@ -384,24 +392,9 @@ export default class World {
     ready = false;
   }
 
-  setAudio() {
+  setAudio(mute) {
+    this.audio = new Audio(mute);
     this.audioSet = true;
-    const listener = new THREE.AudioListener();
-    this.camera.instance.add(listener);
-
-    this.audioGameOver = this.resources.items.gameover;
-    this.audioFoodBite = this.resources.items.bite;
-    this.audioTeaGulp = this.resources.items.gulp;
-
-    this.audioOver = new THREE.Audio(listener);
-    this.audioBite = new THREE.Audio(listener);
-    this.audioGulp = new THREE.Audio(listener);
-
-    this.audioOver.setBuffer(this.audioGameOver);
-    this.audioBite.setBuffer(this.audioFoodBite);
-    this.audioGulp.setBuffer(this.audioTeaGulp);
-
-    console.log("audio set");
   }
 
   samePositionAsSnake(x, z) {
@@ -435,7 +428,7 @@ export default class World {
           this.snake.head.position.z == snake.children[i].position.z
         ) {
           snake.children[i].visible = false;
-          this.audioBite.play();
+          this.audio.bite.play();
           this.gameOver();
         }
       }
@@ -452,9 +445,9 @@ export default class World {
           this.billBoard.score.refreshText(this.snakeLength.toString());
         }
         if (this.seasonFood.children[0] == this.food.winter) {
-          this.audioGulp.play();
+          this.audio.gulp.play();
         } else {
-          this.audioBite.play();
+          this.audio.bite.play();
         }
         this.placeFood();
         this.addBody();
