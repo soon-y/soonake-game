@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import Application from "../Application";
+import Clock from "./Clock";
 import { param } from "../param";
 import Text from "./Text";
 
@@ -9,16 +10,12 @@ export default class BillBoard {
     this.scene = this.application.scene;
     this.score = new Text();
     this.rt = this.application.rtCamera.rt;
+    this.clock = new Clock().instance;
 
     this.setMesh();
   }
 
   setMesh() {
-    this.score.msg.position.y = param.size * 2.2;
-    this.score.msg.position.x = param.boardSize / 2 - param.boardSize / 9;
-    this.score.msg.position.z =
-      -param.boardSize / 2 - param.wallWidth * 2 + 0.01;
-
     this.screen = new THREE.Mesh(
       new THREE.PlaneGeometry((param.boardSize / 4) * 3, param.boardSize / 3),
       new THREE.MeshBasicMaterial({
@@ -27,12 +24,22 @@ export default class BillBoard {
       })
     );
 
-    this.screen.position.y = param.boardSize / 6 + param.size * 2;
-    this.screen.position.z =
-      -param.boardSize / 2 - param.wallWidth * 2 + param.size / 3 / 2 + 0.01;
-    this.screen.position.x = -param.boardSize / 10;
-    this.screen.position.z += 0.005;
+    this.distance = param.boardSize / 2 + 0.66;
+    this.yPos = param.boardSize / 3
+    this.xPos = param.boardSize / 2 * 0.78
 
-    this.scene.add(this.score.msg, this.screen);
+    this.score.msg.position.z = -this.distance - 0.2;
+    this.screen.position.z = -this.distance;
+    this.clock.position.z = - this.distance;
+
+    this.screen.position.x = -param.boardSize / 10;
+    this.score.msg.position.x = this.xPos;
+    this.clock.position.x = this.xPos;
+
+    this.screen.position.y = this.yPos;
+    this.clock.position.y = this.yPos + param.size;
+    this.score.msg.position.y = this.yPos - param.size * 1.8;
+
+    this.scene.add(this.score.msg, this.screen, this.clock);
   }
 }
