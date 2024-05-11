@@ -2,7 +2,7 @@ import * as THREE from "three";
 import Application from "../Application";
 
 export default class Environment {
-  constructor(debug) {
+  constructor() {
     this.application = new Application();
     this.scene = this.application.scene;
     this.resources = this.application.resources;
