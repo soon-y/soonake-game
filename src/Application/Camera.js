@@ -30,7 +30,7 @@ export default class Camera {
     this.controls.dampingFactor = 0.25; //damping inertia
     this.controls.maxPolarAngle = Math.PI / 2 - 0.001;
     this.controls.minDistance = 10;
-    this.controls.maxDistance = 46;
+    this.controls.maxDistance = 50;
   }
 
   resize() {
