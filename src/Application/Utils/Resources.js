@@ -44,9 +44,6 @@ export default class Resources extends EventEmitter {
             btn[i].style.transitionDuration = "3s";
           }
         }, 2000);
-        window.setTimeout(() => {
-          loadingPage.style.display = "none";
-        }, 3500);
       },
 
       //progress
