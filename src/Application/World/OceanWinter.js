@@ -14,7 +14,7 @@ export default class OceanWinter {
   }
 
   setGeometry() {
-    this.geometry = new THREE.PlaneGeometry(300, 300);
+    this.geometry = new THREE.PlaneGeometry(500, 500);
   }
 
   setTextures() {
