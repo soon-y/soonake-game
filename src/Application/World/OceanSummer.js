@@ -15,7 +15,7 @@ export default class OceanSummer {
   }
 
   setGeometry() {
-    this.geometry = new THREE.PlaneGeometry(500, 500);
+    this.geometry = new THREE.PlaneGeometry(1000, 1000);
   }
 
   setTextures() {
