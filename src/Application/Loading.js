@@ -30,7 +30,7 @@ export default class Loading {
                 uniform float uAlpha;
 
                 void main(){
-                    gl_FragColor = vec4(0.0, 0.0, 0.0, uAlpha);
+                    gl_FragColor = vec4(0.636, 0.726, 0.495, uAlpha);
                 }
             `
         })
