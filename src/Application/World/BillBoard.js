@@ -24,7 +24,7 @@ export default class BillBoard {
       })
     );
 
-    this.distance = param.boardSize / 2 + 0.72;
+    this.distance = param.boardSize / 2 + 0.715;
     this.yPos = param.boardSize / 3;
     this.xPos = (param.boardSize / 2) * 0.78;
 
