@@ -84,8 +84,8 @@ export default class World {
         snake
       );
 
-      this.snake.blink();
-      this.snake.flick();
+      this.snake.flicking();
+      this.snake.blinking();
       this.start();
     });
 
@@ -252,25 +252,29 @@ export default class World {
 
     hammertime.on("swipeleft", function () {
       if (isTouchDevice() && !ignore && ready) {
-        goLeft();
+        if (direction.x == step) return;
+        else goLeft();
       }
       setIgnore();
     });
     hammertime.on("swiperight", function () {
       if (isTouchDevice() && !ignore && ready) {
-        goRight();
+        if (direction.x == -step) return;
+        else goRight();
       }
       setIgnore();
     });
     hammertime.on("swipeup", function () {
       if (isTouchDevice() && !ignore && ready) {
-        goUp();
+        if (direction.z == step) return;
+        else goUp();
       }
       setIgnore();
     });
     hammertime.on("swipedown", function () {
       if (isTouchDevice() && !ignore && ready) {
-        goDown();
+        if (direction.z == -step) return;
+        else goDown();
       }
       setIgnore();
     });
@@ -318,6 +322,8 @@ export default class World {
   clickStart() {
     this.camera.controls.enableDamping = false;
     this.camera.controls.enabled = false;
+
+    if(this.snakeFlickKilled) this.snake.flicking();
 
     if (isTouchDevice() === true) {
       this.text.refreshText("Swipe!");
@@ -417,6 +423,17 @@ export default class World {
     msg.visible = true;
     this.text.refreshText("Try again");
     ready = false;
+
+    // Do not flick if head pos is edges since the tongue touches the fences
+    if (
+      this.snake.head.position.x == param.boardSize / 2 - 0.5 ||
+      this.snake.head.position.x == -param.boardSize / 2 + 0.5||
+      this.snake.head.position.z == param.boardSize / 2 - 0.5 ||
+      this.snake.head.position.z == -param.boardSize / 2 + 0.5
+    ) {
+      this.snake.flick.kill();
+      this.snakeFlickKilled = true;
+    }
   }
 
   setAudio(mute) {
