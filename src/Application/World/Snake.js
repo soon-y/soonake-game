@@ -107,20 +107,20 @@ export default class Snake {
     });
   }
 
-  flick() {
-    let flick = gsap.timeline({ repeat: -1, repeatDelay: 3 });
+  flicking() {
+    this.flick = gsap.timeline({ repeat: -1, repeatDelay: 3 });
     let duration = 0.2;
-    flick.to(this.snaketongue.position, {
+    this.flick.to(this.snaketongue.position, {
       z: 0.7,
       duration: duration,
     });
-    flick.to(this.snaketongue.position, {
+    this.flick.to(this.snaketongue.position, {
       z: 0,
       duration: duration,
     });
   }
 
-  blink() {
+  blinking() {
     let duration = 0.2;
     let eyeR = gsap.timeline({ repeat: -1, repeatDelay: 2 });
     let eyeL = gsap.timeline({ repeat: -1, repeatDelay: 2 });
