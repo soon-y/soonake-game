@@ -34,27 +34,28 @@ export default class Resources extends EventEmitter {
           snake.classList.add("ended");
           loadingBar.style.transform = `translate(100%, -50%)`;
           snake.style.transform = `translate(100%, -50%)`;
+
+          for (let i = 0; i < btn.length; i++) {
+            btn[i].style.display = "inline-block";
+            btn[i].style.opacity = "1";
+            btn[i].style.transitionDuration = "2s";
+          }
         }, 1000);
 
-        for (let i = 0; i < btn.length; i++) {
-          btn[i].style.display = "inline-block";
-          btn[i].style.opacity = "1";
-          btn[i].style.transitionDuration = "3s";
-        }
+        window.setTimeout(()=>{
+          for (let i = 0; i < btn.length; i++) {
+            btn[i].style.transitionDuration = "0s";
+          }
+        },3000)
+
 
         if (isTouchDevice() === true) {
           window.setTimeout(() => {
             loadingPage.style.display = "none";
-            for (let i = 0; i < btn.length; i++) {
-              btn[i].style.transitionDuration = "0s";
-            }
           }, 3000);
         } else {
           window.setTimeout(() => {
             loadingPage.style.display = "none";
-            for (let i = 0; i < btn.length; i++) {
-              btn[i].style.transitionDuration = "0s";
-            }
           }, 10000);
         }
       },
