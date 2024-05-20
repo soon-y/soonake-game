@@ -395,6 +395,10 @@ export default class World {
 
     this.seasonFood.position.x = foodPosX;
     this.seasonFood.position.z = foodPosZ;
+
+    let n = Math.random() * 2;
+    this.seasonFood.rotation.y = Math.PI * n;
+    console.log(n)
   }
 
   addBody() {
