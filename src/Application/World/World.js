@@ -398,7 +398,6 @@ export default class World {
 
     let n = Math.random() * 2;
     this.seasonFood.rotation.y = Math.PI * n;
-    console.log(n)
   }
 
   addBody() {
