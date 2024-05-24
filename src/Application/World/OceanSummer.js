@@ -30,7 +30,7 @@ export default class OceanSummer {
       textureWidth: 512,
       textureHeight: 512,
       waterNormals: this.textures.normal,
-      waterColor: 0x0F757A,
+      waterColor: 0x05ECBA,
       distortionScale: 3.7,
       fog: this.scene.fog !== undefined,
     };
