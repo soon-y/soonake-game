@@ -15,15 +15,18 @@ export default class Environment {
   setLight() {
     this.light = new THREE.DirectionalLight(0xffffff);
     this.light.castShadow = true;
-    this.light.shadow.intensity = 10;
+    this.light.shadow.mapSize.width = 1024;
+		this.light.shadow.mapSize.height = 1024;
+    this.light.shadow.intensity = 1;
     this.light.shadow.camera.bottom = -10;
     this.light.shadow.camera.top = 10;
     this.light.shadow.camera.left = -10;
     this.light.shadow.camera.right = 10;
     this.light.shadow.camera.near = 0.1;
     this.light.shadow.camera.far = 30;
+    this.light.shadow.radius = 4;
     this.light.shadow.bias = -0.002;
-    this.light.position.set(-4, 10, -3);
+    this.light.position.set(1, 10, -1);
     this.helper = new THREE.CameraHelper(this.light.shadow.camera);
     this.helper.visible = false;
     this.scene.add(this.light, this.helper);

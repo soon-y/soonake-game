@@ -36,6 +36,7 @@ export default class Text {
       textGeo,
       new THREE.MeshBasicMaterial({ color: "#ffffff" })
     );
+    this.textMesh.castShadow = true;
     this.textMesh.position.x = centerOffset;
   }
 }

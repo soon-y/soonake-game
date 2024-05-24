@@ -19,31 +19,16 @@ export default class Food {
     this.fall = this.jack.scene;
     this.winter = this.mug.scene;
 
-    this.spring.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
-      }
-    });
+    this.setShadow(this.spring);
+    this.setShadow(this.summer);
+    this.setShadow(this.fall);
+    this.setShadow(this.winter);
+  }
 
-    this.summer.traverse((child) => {
+  setShadow(obj){
+    obj.traverse((child) => {
       if (child instanceof THREE.Mesh) {
         child.castShadow = true;
-        child.receiveShadow = true;
-      }
-    });
-
-    this.fall.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
-      }
-    });
-
-    this.winter.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
       }
     });
   }

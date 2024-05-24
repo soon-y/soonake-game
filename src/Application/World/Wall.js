@@ -36,31 +36,16 @@ export default class Wall {
     this.wallWinterCorner = this.wallWinterCorner.scene;
     this.wallSummer = this.wallSummer.scene;
     this.wallSummerCorner = this.wallSummerCorner.scene;
+    this.setShadow(this.wallWinter);
+    this.setShadow(this.wallWinterCorner);
+    this.setShadow(this.wallSummer);
+    this.setShadow(this.wallSummerCorner);
 
-    this.wallWinter.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
-      }
-    });
+  }
 
-    this.wallSummer.traverse((child) => {
+  setShadow(obj){
+    obj.traverse((child) => {
       if (child instanceof THREE.Mesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
-      }
-    });
-
-    this.wallWinterCorner.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
-      }
-    });
-
-    this.wallSummerCorner.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-        child.castShadow = true;
         child.receiveShadow = true;
       }
     });

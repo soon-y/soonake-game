@@ -21,35 +21,15 @@ export default class Field {
     this.fall = this.fieldFall.scene;
     this.winter = this.fieldWinter.scene;
 
-    this.base.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
-      }
-    });
+    this.setShadow(this.base);
+    this.setShadow(this.spring);
+    this.setShadow(this.summer);
+    this.setShadow(this.fall);
+    this.setShadow(this.winter);
+  }
 
-    this.spring.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
-      }
-    });
-
-    this.summer.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
-      }
-    });
-
-    this.fall.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
-      }
-    });
-
-    this.winter.traverse((child) => {
+  setShadow(obj){
+    obj.traverse((child) => {
       if (child instanceof THREE.Mesh) {
         child.castShadow = true;
         child.receiveShadow = true;
