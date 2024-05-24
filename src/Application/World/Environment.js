@@ -18,10 +18,10 @@ export default class Environment {
     this.light.shadow.mapSize.width = 1024;
 		this.light.shadow.mapSize.height = 1024;
     this.light.shadow.intensity = 1;
-    this.light.shadow.camera.bottom = -10;
-    this.light.shadow.camera.top = 10;
-    this.light.shadow.camera.left = -10;
-    this.light.shadow.camera.right = 10;
+    this.light.shadow.camera.bottom = -12;
+    this.light.shadow.camera.top = 12;
+    this.light.shadow.camera.left = -12;
+    this.light.shadow.camera.right = 12;
     this.light.shadow.camera.near = 0.1;
     this.light.shadow.camera.far = 30;
     this.light.shadow.radius = 4;
