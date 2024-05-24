@@ -26,9 +26,9 @@ export default class OceanWinter {
 
   setMaterial() {
     this.waterOptions = {
-      color: "#DCF5FF",
+      color: "#AED6F0",
       scale: 4,
-      flowDirection: new THREE.Vector2(0.01, 0.01),
+      flowDirection: new THREE.Vector2(0.1, 0.1),
       textureWidth: 1024,
       textureHeight: 1024,
     };
@@ -37,7 +37,6 @@ export default class OceanWinter {
   setMesh() {
     this.mesh = new Water(this.geometry, this.waterOptions);
     this.mesh.rotation.x = -Math.PI / 2;
-    this.mesh.receiveShadow = true;
     this.mesh.position.y = -0.2;
   }
 }

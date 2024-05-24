@@ -30,9 +30,7 @@ export default class OceanSummer {
       textureWidth: 512,
       textureHeight: 512,
       waterNormals: this.textures.normal,
-      sunDirection: new THREE.Vector3(),
-      sunColor: 0xffffff,
-      waterColor: "#30FEBB",
+      waterColor: 0x0F757A,
       distortionScale: 3.7,
       fog: this.scene.fog !== undefined,
     };
@@ -41,7 +39,6 @@ export default class OceanSummer {
   setMesh() {
     this.mesh = new Water(this.geometry, this.waterOptions);
     this.mesh.rotation.x = -Math.PI / 2;
-    this.mesh.receiveShadow = true;
     this.mesh.position.y = -0.2;
   }
 
