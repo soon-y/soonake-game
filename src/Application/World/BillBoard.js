@@ -28,18 +28,18 @@ export default class BillBoard {
     this.yPos = param.boardSize / 3;
     this.xPos = (param.boardSize / 2) * 0.78;
 
-    this.score.msg.position.z = -this.distance - 0.2;
+    this.score.group.position.z = -this.distance - 0.2;
     this.screen.position.z = -this.distance;
     this.clock.position.z = -this.distance;
 
     this.screen.position.x = -param.boardSize / 10;
-    this.score.msg.position.x = this.xPos;
+    this.score.group.position.x = this.xPos;
     this.clock.position.x = this.xPos;
 
     this.screen.position.y = this.yPos;
     this.clock.position.y = this.yPos + param.size;
-    this.score.msg.position.y = this.yPos - param.size * 1.8;
+    this.score.group.position.y = this.yPos - param.size * 1.8;
 
-    this.scene.add(this.score.msg, this.screen, this.clock);
+    this.scene.add(this.score.group, this.screen, this.clock);
   }
 }

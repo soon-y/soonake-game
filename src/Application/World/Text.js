@@ -10,16 +10,18 @@ export default class Text {
     this.resources = this.application.resources;
     this.resource = this.resources.items.kenpixel;
     this.font = new Font(this.resource);
-    this.msg = new THREE.Group();
+    this.group = new THREE.Group();
+    this.msg = null
   }
 
   refreshText(text) {
-    this.msg.remove(this.textMesh);
+    this.group.remove(this.mesh);
     this.createText(text);
-    this.msg.add(this.textMesh);
+    this.group.add(this.mesh);
   }
 
   createText(text) {
+    this.msg = text
     let textGeo = new TextGeometry(text.toString(), {
       font: this.font,
       size: param.size,
@@ -32,11 +34,11 @@ export default class Text {
     const centerOffset =
       -0.5 * (textGeo.boundingBox.max.x - textGeo.boundingBox.min.x);
 
-    this.textMesh = new THREE.Mesh(
+    this.mesh = new THREE.Mesh(
       textGeo,
       new THREE.MeshBasicMaterial({ color: "#ffffff" })
     );
-    this.textMesh.castShadow = true;
-    this.textMesh.position.x = centerOffset;
+    this.mesh.castShadow = true;
+    this.mesh.position.x = centerOffset;
   }
 }
