@@ -43,6 +43,8 @@ export default class World {
     this.scene = this.application.scene;
     this.camera = this.application.camera;
     this.resources = this.application.resources;
+    this.raycaster = this.application.raycaster;
+    this.mouse = this.application.mouse.cursor;
     this.seasonFood = new THREE.Group();
     this.boundary = new THREE.Group();
     this.seasonField = new THREE.Group();
@@ -64,7 +66,7 @@ export default class World {
       this.lastPosZ = new Queue();
       this.text = new Text();
       this.text.refreshText("Ready?");
-      msg = this.text.msg;
+      msg = this.text.group;
       msg.rotation.x = -Math.PI / 2;
       msg.position.z = param.boardSize * 0.75;
       msg.position.y = -0.25;
@@ -78,6 +80,7 @@ export default class World {
         this.boundary,
         this.field.base,
         this.seasonField,
+        this.seasonFood,
         this.oceanSummer.mesh,
         this.oceanWinter.mesh,
         msg,
@@ -157,24 +160,11 @@ export default class World {
     });
 
     startbtn.addEventListener("click", () => {
-      if (!this.audioSet) this.setAudio();
       this.clickStart();
-      ready = true;
-      startbtn.style.display = "none";
     });
 
     replay.addEventListener("click", () => {
-      if (
-        // snake head hit the boundaries
-        this.snake.head.position.x > param.boardSize / 2 ||
-        this.snake.head.position.x < -param.boardSize / 2 ||
-        this.snake.head.position.z > param.boardSize / 2 ||
-        this.snake.head.position.z < -param.boardSize / 2
-      ) {
-        this.fence.revert();
-        this.wall.revert();
-      }
-      replay.style.display = "none";
+      this.revert();
       this.clickStart();
       this.start();
     });
@@ -280,6 +270,19 @@ export default class World {
     });
   }
 
+  revert(){
+    if (
+      // snake head hit the boundaries
+      this.snake.head.position.x > param.boardSize / 2 ||
+      this.snake.head.position.x < -param.boardSize / 2 ||
+      this.snake.head.position.z > param.boardSize / 2 ||
+      this.snake.head.position.z < -param.boardSize / 2
+    ) {
+      this.fence.revert();
+      this.wall.revert();
+    }
+  }
+
   setBtnFilter() {
     for (let i = 2; i < nodeList.length; i++)
       nodeList[i].style.filter = "opacity(50%)";
@@ -322,17 +325,17 @@ export default class World {
   clickStart() {
     this.camera.controls.enableDamping = false;
     this.camera.controls.enabled = false;
-
-    if(this.snakeFlickKilled) this.snake.flicking();
-
     if (isTouchDevice() === true) {
       this.text.refreshText("Swipe!");
     } else {
       this.text.refreshText("Press arrow keys");
     }
-
-    this.scene.add(this.seasonFood);
+    if(this.snakeFlickKilled) this.snake.flicking();
     ready = true;
+
+    if (!this.audioSet) this.setAudio();
+    startbtn.style.display = "none";
+    replay.style.display = "none";
   }
 
   start() {
@@ -395,9 +398,6 @@ export default class World {
 
     this.seasonFood.position.x = foodPosX;
     this.seasonFood.position.z = foodPosZ;
-
-    let n = Math.random() * 2;
-    this.seasonFood.rotation.y = Math.PI * n;
   }
 
   addBody() {
@@ -413,6 +413,37 @@ export default class World {
 
     if (this.lastPosX.peek() == this.lastPosX.last()) {
       snakeBody.rotation.y = Math.PI / 2;
+    }
+  }
+
+  intersect() {
+    this.currentIntersect = null
+    if(this.text){
+      let object = [this.text.group]
+      let intersects = this.raycaster.instance.intersectObjects(object)
+      if (intersects.length) {  
+        if(this.text.msg === "Ready?" || this.text.msg === "Try again"){
+          document.body.style.cursor = "pointer";
+          this.currentIntersect = intersects[0]
+        }
+      }
+      else {
+          this.currentIntersect = null
+          document.body.style.cursor = "default";
+      }   
+    }
+  }
+
+  click(){
+    if (this.currentIntersect) {
+      if(this.text.msg === "Ready?"){
+        this.clickStart();
+      }
+      if(this.text.msg === "Try again"){
+        this.revert();
+        this.clickStart();
+        this.start();
+      }
     }
   }
 

@@ -1,7 +1,9 @@
 import * as THREE from "three";
 import Sizes from "./Utils/Sizes";
 import Time from "./Utils/Time";
+import Mouse from './Utils/Mouse'
 import Camera from "./Camera";
+import Raycaster from "./Raycaster";
 import Renderer from "./Renderer";
 import World from "./World/World";
 import Resources from "./Utils/Resources";
@@ -29,6 +31,8 @@ export default class Application {
     this.scene = new THREE.Scene();
     this.camera = new Camera();
     this.rtCamera = new rtCamera();
+    this.mouse = new Mouse()
+    this.raycaster = new Raycaster()
     this.renderder = new Renderer();
     this.loading = new Loading();
     this.resources = new Resources(sources);
@@ -41,6 +45,21 @@ export default class Application {
     this.time.on("tick", () => {
       this.update();
     });
+
+    this.mouse.on('mousemove', () => {
+      this.raycaster.update();
+      this.world.intersect();
+    });
+
+    this.mouse.on('mousedown', () => {
+      this.raycaster.update();
+      this.world.intersect();
+      this.world.click();
+    });
+
+    this.mouse.on('click', () => {
+      this.world.click();
+    })
   }
 
   resize() {
