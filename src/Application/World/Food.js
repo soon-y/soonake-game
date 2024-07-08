@@ -18,6 +18,7 @@ export default class Food {
     this.summer = this.watermelon.scene;
     this.fall = this.jack.scene;
     this.winter = this.mug.scene;
+    this.summer.rotation.y = Math.PI/4
 
     this.setShadow(this.spring);
     this.setShadow(this.summer);
