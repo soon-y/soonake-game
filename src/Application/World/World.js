@@ -172,64 +172,32 @@ export default class World {
     //season change
     springBtn.addEventListener("click", () => {
       if (this.seasonFood.children[0] != this.food.spring) {
-        this.seasonFood.remove(this.seasonFood.children[0]);
-        this.seasonFood.add(this.food.spring);
-        this.seasonField.remove(this.seasonField.children[0]);
-        this.seasonField.add(this.field.spring);
-        this.snake.season.remove(this.snake.season.children[0]);
-        this.snake.season.add(this.snake.spring);
-        this.boundary.remove(this.boundary.children[0]);
-        this.boundary.add(this.fence.spring);
-        this.setBtnFilter();
+        this.displaySeason(this.food.spring, this.field.spring, this.snake.spring, this.fence.spring, "#000000")
         springBtn.style.filter = "opacity(100%)";
       }
     });
 
     summerBtn.addEventListener("click", () => {
       if (this.seasonFood.children[0] != this.food.summer) {
-        this.seasonFood.remove(this.seasonFood.children[0]);
-        this.seasonFood.add(this.food.summer);
-        this.seasonField.remove(this.seasonField.children[0]);
-        this.seasonField.add(this.field.summer);
-        this.snake.season.remove(this.snake.season.children[0]);
-        this.snake.season.add(this.snake.summer);
-        this.boundary.remove(this.boundary.children[0]);
-        this.boundary.add(this.wall.summer);
+        this.displaySeason(this.food.summer, this.field.summer, this.snake.summer, this.wall.summer, "#000000")
         this.scene.remove(this.oceanWinter.mesh);
         this.scene.add(this.oceanSummer.mesh);
-        this.setBtnFilter();
         summerBtn.style.filter = "opacity(100%)";
       }
     });
 
     fallBtn.addEventListener("click", () => {
       if (this.seasonFood.children[0] != this.food.fall) {
-        this.seasonFood.remove(this.seasonFood.children[0]);
-        this.seasonFood.add(this.food.fall);
-        this.seasonField.remove(this.seasonField.children[0]);
-        this.seasonField.add(this.field.fall);
-        this.snake.season.remove(this.snake.season.children[0]);
-        this.snake.season.add(this.snake.fall);
-        this.boundary.remove(this.boundary.children[0]);
-        this.boundary.add(this.fence.fall);
-        this.setBtnFilter();
+        this.displaySeason(this.food.fall, this.field.fall, this.snake.fall, this.fence.fall, "#eeeeee")
         fallBtn.style.filter = "opacity(100%)";
       }
     });
 
     winterBtn.addEventListener("click", () => {
       if (this.seasonFood.children[0] != this.food.winter) {
-        this.seasonFood.remove(this.seasonFood.children[0]);
-        this.seasonFood.add(this.food.winter);
-        this.seasonField.remove(this.seasonField.children[0]);
-        this.seasonField.add(this.field.winter);
-        this.snake.season.remove(this.snake.season.children[0]);
-        this.snake.season.add(this.snake.winter);
-        this.boundary.remove(this.boundary.children[0]);
-        this.boundary.add(this.wall.winter);
+        this.displaySeason(this.food.winter, this.field.winter, this.snake.winter, this.wall.winter, "#000000")
         this.scene.remove(this.oceanSummer.mesh);
         this.scene.add(this.oceanWinter.mesh);
-        this.setBtnFilter();
         winterBtn.style.filter = "opacity(100%)";
       }
     });
@@ -281,6 +249,22 @@ export default class World {
       this.fence.revert();
       this.wall.revert();
     }
+  }
+
+  displaySeason(food,field,snake,fence,color){
+    this.seasonFood.remove(this.seasonFood.children[0]);
+    this.seasonFood.add(food);
+    this.seasonField.remove(this.seasonField.children[0]);
+    this.seasonField.add(field);
+    this.snake.season.remove(this.snake.season.children[0]);
+    this.snake.season.add(snake);
+    this.boundary.remove(this.boundary.children[0]);
+    this.boundary.add(fence);
+    this.setBtnFilter();
+    nodeList[0].style.color = color;
+    nodeList[1].style.color = color;
+    on.style.color = color;
+    off.style.color = color;
   }
 
   setBtnFilter() {
