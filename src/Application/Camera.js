@@ -51,8 +51,12 @@ export default class Camera {
     } else if (this.instance.aspect >= 0.5 && this.instance.aspect < 1) {
       this.instance.position.y = 20 + (1 - this.instance.aspect) * 20;
       this.instance.position.z = 15 + (1 - this.instance.aspect) * 20;
+      document.querySelector(".season").classList.remove("web");
+      document.querySelector(".season").classList.add("mobile");
     } else {
       this.instance.position.set(0, 20, 15);
+      document.querySelector(".season").classList.add("web");
+      document.querySelector(".season").classList.remove("mobile");
     }
   }
 }
