@@ -172,14 +172,14 @@ export default class World {
     //season change
     springBtn.addEventListener("click", () => {
       if (this.seasonFood.children[0] != this.food.spring) {
-        this.displaySeason(this.food.spring, this.field.spring, this.snake.spring, this.fence.spring, "#000000")
+        this.displaySeason(this.food.spring, this.field.spring, this.snake.spring, this.fence.spring, "#95A289")
         springBtn.style.filter = "opacity(100%)";
       }
     });
 
     summerBtn.addEventListener("click", () => {
       if (this.seasonFood.children[0] != this.food.summer) {
-        this.displaySeason(this.food.summer, this.field.summer, this.snake.summer, this.wall.summer, "#000000")
+        this.displaySeason(this.food.summer, this.field.summer, this.snake.summer, this.wall.summer, "#B9DEDB")
         this.scene.remove(this.oceanWinter.mesh);
         this.scene.add(this.oceanSummer.mesh);
         summerBtn.style.filter = "opacity(100%)";
@@ -188,14 +188,14 @@ export default class World {
 
     fallBtn.addEventListener("click", () => {
       if (this.seasonFood.children[0] != this.food.fall) {
-        this.displaySeason(this.food.fall, this.field.fall, this.snake.fall, this.fence.fall, "#eeeeee")
+        this.displaySeason(this.food.fall, this.field.fall, this.snake.fall, this.fence.fall, "#7F8559")
         fallBtn.style.filter = "opacity(100%)";
       }
     });
 
     winterBtn.addEventListener("click", () => {
       if (this.seasonFood.children[0] != this.food.winter) {
-        this.displaySeason(this.food.winter, this.field.winter, this.snake.winter, this.wall.winter, "#000000")
+        this.displaySeason(this.food.winter, this.field.winter, this.snake.winter, this.wall.winter, "#949494")
         this.scene.remove(this.oceanSummer.mesh);
         this.scene.add(this.oceanWinter.mesh);
         winterBtn.style.filter = "opacity(100%)";
@@ -265,11 +265,13 @@ export default class World {
     nodeList[1].style.color = color;
     on.style.color = color;
     off.style.color = color;
+    folderOpen.style.color = color;
+    folderClose.style.color = color;
   }
 
   setBtnFilter() {
     for (let i = 2; i < nodeList.length; i++)
-      nodeList[i].style.filter = "opacity(50%)";
+      nodeList[i].style.filter = "opacity(30%)";
   }
 
   arrowKey(event) {
