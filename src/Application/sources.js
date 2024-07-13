@@ -151,4 +151,9 @@ export default [
     type: "texture",
     path: "textures/waterMap/waternormals.jpg",
   },
+  {
+    name: "perlin",
+    type: "texture",
+    path: "textures/smokeMap/perlin.png",
+  },
 ];

@@ -179,7 +179,7 @@ export default class World {
 
     summerBtn.addEventListener("click", () => {
       if (this.seasonFood.children[0] != this.food.summer) {
-        this.displaySeason(this.food.summer, this.field.summer, this.snake.summer, this.wall.summer, "#B9DEDB")
+        this.displaySeason(this.food.summer, this.field.summer, this.snake.summer, this.wall.summer, "#A5DDD6")
         this.scene.remove(this.oceanWinter.mesh);
         this.scene.add(this.oceanSummer.mesh);
         summerBtn.style.filter = "opacity(100%)";
@@ -474,6 +474,8 @@ export default class World {
   }
 
   update() {
+    if(this.food) this.food.update();
+
     if (ready) {
       // when the snake hit the boundaries
       if (

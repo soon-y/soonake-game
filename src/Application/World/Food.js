@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import Application from "../Application";
+import Smoke from "./Smoke";
 
 export default class Food {
   constructor() {
@@ -9,6 +10,7 @@ export default class Food {
     this.watermelon = this.resources.items.watermelon;
     this.jack = this.resources.items.jackOlantern;
     this.mug = this.resources.items.mug;
+    this.smoke = new Smoke();
 
     this.setModel();
   }
@@ -17,13 +19,15 @@ export default class Food {
     this.spring = this.egg.scene;
     this.summer = this.watermelon.scene;
     this.fall = this.jack.scene;
-    this.winter = this.mug.scene;
+    this.winter = new THREE.Group();
+    this.winter.add(this.mug.scene, this.smoke.mesh);
+
     this.summer.rotation.y = Math.PI/4
 
     this.setShadow(this.spring);
     this.setShadow(this.summer);
     this.setShadow(this.fall);
-    this.setShadow(this.winter);
+    this.setShadow(this.mug.scene);
   }
 
   setShadow(obj){
@@ -32,5 +36,9 @@ export default class Food {
         child.castShadow = true;
       }
     });
+  }
+
+  update(){
+    this.smoke.update();
   }
 }
