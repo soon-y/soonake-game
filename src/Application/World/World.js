@@ -179,7 +179,7 @@ export default class World {
 
     summerBtn.addEventListener("click", () => {
       if (this.seasonFood.children[0] != this.food.summer) {
-        this.displaySeason(this.food.summer, this.field.summer, this.snake.summer, this.wall.summer, "#A5DDD6")
+        this.displaySeason(this.food.summer, this.field.summer, this.snake.summer, this.wall.summer, "#D8D9D9")
         this.scene.remove(this.oceanWinter.mesh);
         this.scene.add(this.oceanSummer.mesh);
         summerBtn.style.filter = "opacity(100%)";
@@ -195,7 +195,7 @@ export default class World {
 
     winterBtn.addEventListener("click", () => {
       if (this.seasonFood.children[0] != this.food.winter) {
-        this.displaySeason(this.food.winter, this.field.winter, this.snake.winter, this.wall.winter, "#949494")
+        this.displaySeason(this.food.winter, this.field.winter, this.snake.winter, this.wall.winter, "#EBECEC")
         this.scene.remove(this.oceanSummer.mesh);
         this.scene.add(this.oceanWinter.mesh);
         winterBtn.style.filter = "opacity(100%)";

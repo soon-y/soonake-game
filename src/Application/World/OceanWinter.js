@@ -26,7 +26,7 @@ export default class OceanWinter {
 
   setMaterial() {
     this.waterOptions = {
-      color: "#ffffff",
+      color: "#455B79",
       scale: 4,
       flowDirection: new THREE.Vector2(-0.1, -0.0),
       textureWidth: 1024,
