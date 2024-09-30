@@ -1,48 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Snake Game</title>
-    <link rel="icon" type="image/x-icon" href="html/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="html/appIcon.png" />
-    <script
-      src="https://kit.fontawesome.com/5ae8715ba3.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="./style.css" />
-  </head>
 
-  <body>
-    <canvas class="webgl"></canvas>
-    <div class="sound">
-      <input class="audio" type="checkbox" />
-      <i class="fa-solid fa-volume-high btn"></i>
-      <i class="fa-solid fa-volume-xmark"></i>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Snake Game</title>
+  <link rel="icon" type="image/x-icon" href="html/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="html/appIcon.png" />
+  <script src="https://kit.fontawesome.com/5ae8715ba3.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <canvas class="webgl"></canvas>
+  <div class="sound">
+    <input class="audio" type="checkbox" />
+    <i class="fa-solid fa-volume-high btn"></i>
+    <i class="fa-solid fa-volume-xmark"></i>
+  </div>
+  <div class="play">
+    <button class="fa-solid fa-play fa-beat btn"></button>
+    <button class="fa-solid fa-rotate-right fa-beat"></button>
+  </div>
+  <div class="season btn">
+    <button id="spring" class="btn">🐰</button>
+    <button id="summer" class="btn">🍉</button>
+    <button id="fall" class="btn">🎃</button>
+    <button id="winter" class="btn">🎄</button>
+    <div class="season_folder">
+      <input class="folder" type="checkbox" />
+      <i class="fa-solid fa-folder-open btn"></i>
+      <i class="fa-solid fa-folder"></i>
     </div>
-    <div class="play">
-      <button class="fa-solid fa-play fa-beat btn"></button>
-      <button class="fa-solid fa-rotate-right fa-beat"></button>
-    </div>
-    <div class="season btn">
-      <button id="spring" class="btn">🐰</button>
-      <button id="summer" class="btn">🍉</button>
-      <button id="fall" class="btn">🎃</button>
-      <button id="winter" class="btn">🎄</button>
-      <div class="season_folder">
-        <input class="folder" type="checkbox" />
-        <i class="fa-solid fa-folder-open btn"></i>
-        <i class="fa-solid fa-folder"></i>
-      </div>
-    </div>
-    <div class="loading-page">
-      <div class="loading-bar"></div>
-      <img
-        class="loading-snake"
-        src="html/snake.png"
-        alt="Snake vector image"
-      />
-    </div>
-    <script type="module" src="./script.js"></script>
-  </body>
+  </div>
+  <div class="loading-page">
+    <div class="loading-bar"></div>
+    <img class="loading-snake" src="html/snake.png" alt="Snake vector image" />
+  </div>
+  <script type="module" src="./script.js"></script>
+</body>
+
 </html>
