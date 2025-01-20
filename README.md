@@ -14,6 +14,7 @@
 - When the snake eats food, its body grows by one unit and the position of the food changes.
 - The food is placed at a random point that does not overlap with the snake's position.
 - The game ends when the snake hits a wall or intersects with his body.
+- Users can change the concept of the background design: Easter, Summer, Halloween, and Winter.
 
 ## Built with
 ![JavaScript](https://img.shields.io/badge/JavaScript-FFD700?style=for-the-badge&logo=javascript&logoColor=white)
